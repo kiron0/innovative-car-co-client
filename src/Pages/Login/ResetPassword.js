@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { Link, useLocation } from "react-router-dom";
 import auth from "../Firebase/firebase.init";
 import Loading from "../Shared/Loading/Loading";
-import logo from "../../Assets/logo.png";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -34,7 +33,6 @@ const ResetPassword = () => {
     <div className="min-h-screen flex justify-center items-center px-0">
       {sending && <Loading />}
       <div className="py-12 px-12 rounded-2xl lg:w-3/12 ">
-        <img src={logo} alt="" className="w-48 flex mx-auto pb-12" />
         <form
           className="grid grid-cols-1 gap-y-4"
           onSubmit={handleSubmit(onSubmit)}

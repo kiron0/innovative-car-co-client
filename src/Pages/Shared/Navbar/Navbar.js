@@ -34,34 +34,15 @@ const Navbar = ({ handleThemeChange, theme }) => {
           Home
         </NavLink>
       </li>
+
       <li>
         <NavLink
           className={({ isActive }) =>
             isActive ? "bg-primary text-white rounded" : "rounded lg:mx-2"
           }
-          to="/portfolio"
+          to="/blogs"
         >
-          Our Portfolio
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "bg-primary text-white rounded" : "rounded lg:mx-2"
-          }
-          to="/team"
-        >
-          Our Team
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "bg-primary text-white rounded" : "rounded lg:mx-2"
-          }
-          to="/contact"
-        >
-          Contact Us
+          Blogs
         </NavLink>
       </li>
       {user && (
