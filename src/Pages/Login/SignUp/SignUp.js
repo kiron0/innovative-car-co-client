@@ -10,7 +10,7 @@ import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 import auth from "../../Firebase/firebase.init";
 import Loading from "../../Shared/Loading/Loading";
-import useToken from "../../../hookes/useToken";
+import useToken from "../../../hooks/useToken";
 
 const SignUp = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
