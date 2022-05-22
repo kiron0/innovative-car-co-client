@@ -109,7 +109,7 @@ const Navbar = ({ handleThemeChange, theme }) => {
       <div className="fixed top-0 w-full z-50">
         <input type="checkbox" className="drawer-toggle" />
         <div
-          className={`drawer-content flex flex-col py-[8px] lg:py-[10px] backdrop-blur-[18px] bg-base-200  ${
+          className={`drawer-content flex flex-col py-[8px] lg:py-[10px] backdrop-blur-[18px] bg-base-100  ${
             scrollY < 300 && "lg:bg-transparent"
           }`}
         >
@@ -164,7 +164,7 @@ const Navbar = ({ handleThemeChange, theme }) => {
           }`}
         >
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-          <ul className="menu p-4 gap-4 overflow-y-auto w-80 font-bold h-screen backdrop-blur-[18px] bg-base-200">
+          <ul className="menu p-4 gap-4 overflow-y-auto w-80 font-bold h-screen backdrop-blur-[18px] bg-base-100">
             {navItems}
           </ul>
         </div>
