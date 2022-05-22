@@ -10,8 +10,7 @@ import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 import auth from "../../Firebase/firebase.init";
 import Loading from "../../Shared/Loading/Loading";
-import logo from "../../../Assets/logo.png";
-import useToken from "../../../hooks/useToken";
+import useToken from "../../../hookes/useToken";
 
 const SignUp = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -55,7 +54,6 @@ const SignUp = () => {
   return (
     <div className="flex h-screen justify-center items-center px-4 lg:px-12">
       <div className="card w-full max-w-md bg-base-100">
-        <img src={logo} alt="" className="w-48 flex mx-auto" />
         <div className="card-body">
           <h2 className="text-center text-2xl font-bold">Create an account</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
