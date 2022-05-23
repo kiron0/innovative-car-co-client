@@ -44,13 +44,20 @@ const SignUp = () => {
 
   if (token) {
     navigate("/", { replace: true });
-    toast.success("Welcome to Innovative Car Co.!");
+    toast.success("User created successfully");
   }
 
+  // create a new user
   const onSubmit = async (data) => {
-    await createUserWithEmailAndPassword(data.email, data.password);
-    await updateProfile({ displayName: data.name });
+    const { email, password, name } = data;
+    const user = await createUserWithEmailAndPassword(email, name, password);
+    if (user) {
+      await updateProfile({
+        displayName: name,
+      });
+    }
   };
+
   return (
     <div className="flex h-screen justify-center items-center px-4 lg:px-12">
       <div className="card w-full max-w-md bg-base-100">

@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {},
   },
@@ -7,7 +7,7 @@ module.exports = {
     themes: [
       {
         car_parts_theme: {
-          primary: "#F63E7B",
+          primary: "#5a4b47",
           secondary: "#111430",
           accent: "#FF4545",
           neutral: "#3d4451",

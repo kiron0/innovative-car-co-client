@@ -36,7 +36,7 @@ const PartsDetails = () => {
           <img
             src={part.img}
             alt="Album"
-            className="lg:w-1/2 w-full lg:h-auto h-full object-cover object-center rounded-lg"
+            className="lg:w-3/4 w-full lg:h-auto h-full object-cover object-center rounded-lg"
           />
         </figure>
         <div className="card-body lg:w-3/4 w-full lg:py-20 mb-6 lg:mb-0">

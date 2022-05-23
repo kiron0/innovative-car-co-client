@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../../Shared/Footer/Footer";
 import Banner from "../Banner/Banner";
 import Parts from "../Parts/Parts";
 
@@ -7,6 +8,7 @@ const Home = () => {
     <>
       <Banner></Banner>
       <Parts></Parts>
+      <Footer></Footer>
     </>
   );
 };

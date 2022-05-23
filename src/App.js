@@ -10,7 +10,11 @@ import ResetPassword from "./Pages/Login/ResetPassword";
 import preloader from "./Assets/preloader.gif";
 import AllParts from "./Pages/AllParts/AllParts";
 import PartsDetails from "./Pages/PartsDetails/PartsDetails";
-import Footer from "./Pages/Shared/Footer/Footer";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import RequireAuth from "./Pages/Login/RequireAuth/RequireAuth";
+import MyProfile from "./Pages/Dashboard/MyProfile";
+import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
+import AllUsers from "./Pages/Dashboard/AllUsers";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -49,8 +53,26 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/allParts" element={<AllParts />} />
         <Route path="/allParts/:id" element={<PartsDetails />} />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<MyProfile></MyProfile>}></Route>
+          <Route path="make-admin" element={<MakeAdmin></MakeAdmin>}></Route>
+          <Route
+            path="allUsers"
+            element={
+              <RequireAuth>
+                <AllUsers></AllUsers>
+              </RequireAuth>
+            }
+          ></Route>
+        </Route>
       </Routes>
-      <Footer></Footer>
       <Toaster />
     </div>
   );

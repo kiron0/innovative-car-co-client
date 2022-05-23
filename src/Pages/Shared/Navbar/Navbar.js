@@ -124,28 +124,6 @@ const Navbar = ({ handleThemeChange, theme }) => {
           }`}
         >
           <div className="w-full navbar container mx-auto">
-            <div className="navbar-start w-20">
-              <label
-                tabIndex="1"
-                htmlFor="dashboard-sidebar"
-                className="btn btn-ghost lg:hidden"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h8m-8 6h16"
-                  />
-                </svg>
-              </label>
-            </div>
             <div className="flex-1 px-0 mx-3">
               <p className="font-bold ml-0 md:ml-0 lg:ml-0 lg:w-auto w-full text-2xl ">
                 <NavLink to="/">
