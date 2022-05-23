@@ -10,6 +10,7 @@ import ResetPassword from "./Pages/Login/ResetPassword";
 import preloader from "./Assets/preloader.gif";
 import AllParts from "./Pages/AllParts/AllParts";
 import PartsDetails from "./Pages/PartsDetails/PartsDetails";
+import Footer from "./Pages/Shared/Footer/Footer";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -49,6 +50,7 @@ function App() {
         <Route path="/allParts" element={<AllParts />} />
         <Route path="/allParts/:id" element={<PartsDetails />} />
       </Routes>
+      <Footer></Footer>
       <Toaster />
     </div>
   );
