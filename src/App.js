@@ -8,6 +8,8 @@ import SignUp from "./Pages/Login/SignUp/SignUp";
 import Navbar from "./Pages/Shared/Navbar/Navbar";
 import ResetPassword from "./Pages/Login/ResetPassword";
 import preloader from "./Assets/preloader.gif";
+import AllParts from "./Pages/AllParts/AllParts";
+import PartsDetails from "./Pages/PartsDetails/PartsDetails";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -34,7 +36,7 @@ function App() {
     <div data-theme={theme && "night"} className="App">
       {loading ? (
         <div className="preloader">
-          <img src={preloader} alt="" color={"#F63E7B"} loading={loading} />
+          <img src={preloader} alt="" loading={loading} />
         </div>
       ) : (
         <Navbar handleThemeChange={handleThemeChange} theme={theme} />
@@ -44,6 +46,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/allParts" element={<AllParts />} />
+        <Route path="/allParts/:id" element={<PartsDetails />} />
       </Routes>
       <Toaster />
     </div>

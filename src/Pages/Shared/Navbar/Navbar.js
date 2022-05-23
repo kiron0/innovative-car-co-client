@@ -45,6 +45,16 @@ const Navbar = ({ handleThemeChange, theme }) => {
           Blogs
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "bg-primary text-white rounded" : "rounded lg:mx-2"
+          }
+          to="/contactUs"
+        >
+          Contact Us
+        </NavLink>
+      </li>
       {user && (
         <li>
           <NavLink
@@ -139,7 +149,9 @@ const Navbar = ({ handleThemeChange, theme }) => {
             <div className="flex-1 px-0 mx-3">
               <p className="font-bold ml-0 md:ml-0 lg:ml-0 lg:w-auto w-full text-2xl ">
                 <NavLink to="/">
-                  <h2 className="text-3xl color-primary">Innovative Car Co.</h2>
+                  <h2 className="text-xl lg:text-3xl color-primary">
+                    Innovative Car Co.
+                  </h2>
                   {/* <img src={logo} alt="" className="w-24" /> */}
                 </NavLink>
               </p>
