@@ -15,6 +15,12 @@ import RequireAuth from "./Pages/Login/RequireAuth/RequireAuth";
 import MyProfile from "./Pages/Dashboard/MyProfile";
 import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
 import AllUsers from "./Pages/Dashboard/AllUsers";
+import MyOrders from "./Pages/Dashboard/MyOrders";
+import RequireAdmin from "./Pages/Login/RequireAdmin/RequireAdmin";
+import AddProduct from "./Pages/Dashboard/AddProduct";
+import NotFound from "./Pages/Shared/NotFound/NotFound";
+import AddReview from "./Pages/Dashboard/AddReview";
+import ManageProducts from "./Pages/Dashboard/ManageProducts";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -49,7 +55,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signUp" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/allParts" element={<AllParts />} />
         <Route path="/allParts/:id" element={<PartsDetails />} />
@@ -62,16 +68,42 @@ function App() {
           }
         >
           <Route index element={<MyProfile></MyProfile>}></Route>
-          <Route path="make-admin" element={<MakeAdmin></MakeAdmin>}></Route>
+          <Route path="my-orders" element={<MyOrders></MyOrders>}></Route>
+          <Route path="addReview" element={<AddReview></AddReview>}></Route>
+          <Route
+            path="makeAdmin"
+            element={
+              <RequireAdmin>
+                <MakeAdmin />
+              </RequireAdmin>
+            }
+          ></Route>
           <Route
             path="allUsers"
             element={
-              <RequireAuth>
+              <RequireAdmin>
                 <AllUsers></AllUsers>
-              </RequireAuth>
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="addProduct"
+            element={
+              <RequireAdmin>
+                <AddProduct></AddProduct>
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="manageProduct"
+            element={
+              <RequireAdmin>
+                <ManageProducts></ManageProducts>
+              </RequireAdmin>
             }
           ></Route>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
     </div>

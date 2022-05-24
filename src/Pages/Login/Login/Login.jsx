@@ -141,7 +141,7 @@ const Login = () => {
           <p className="text-center font-semibold">
             <small>
               Don't have an account?{" "}
-              <Link className="text-primary" to="/signup">
+              <Link className="text-primary" to="/signUp">
                 Create New Account
               </Link>
             </small>

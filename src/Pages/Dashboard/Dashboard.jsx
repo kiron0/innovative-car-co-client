@@ -41,39 +41,34 @@ const Dashboard = () => {
       <div className="drawer-side">
         <label htmlFor="dashboard-sidebar" className="drawer-overlay"></label>
         <ul className="menu p-4 overflow-y-auto w-72 bg-base-100 text-base-content py-20">
-          {/* <!-- Sidebar content here --> */}
-          {user ? (
+          {user && (
             <>
               <li className="py-2">
-                <NavLink to="/dashboard">My Orders</NavLink>
+                <NavLink to="/dashboard">My Profile</NavLink>
               </li>
               <li className="py-2">
-                <NavLink to="/dashboard/review">My Reviews</NavLink>
+                <NavLink to="/dashboard/my-orders">My Orders</NavLink>
               </li>
               <li className="py-2">
-                <NavLink to="/dashboard/history">My Profile</NavLink>
+                <NavLink to="/dashboard/addReview">Add a review</NavLink>
               </li>
             </>
-          ) : (
-            <></>
           )}
-          {admin ? (
+          {admin && (
             <>
-              <li>
+              <li className="py-2">
                 <NavLink to="/dashboard/allUsers">Manage All Users</NavLink>
               </li>
-              <li>
-                <NavLink to="/dashboard/addDoctor">Add a Product</NavLink>
+              <li className="py-2">
+                <NavLink to="/dashboard/addProduct">Add a Product</NavLink>
               </li>
-              <li>
-                <NavLink to="/dashboard/make-admin">Make A Admin</NavLink>
+              <li className="py-2">
+                <NavLink to="/dashboard/makeAdmin">Make A Admin</NavLink>
               </li>
-              <li>
-                <NavLink to="/dashboard/manageDoctor">Manage Products</NavLink>
+              <li className="py-2">
+                <NavLink to="/dashboard/manageProduct">Manage Products</NavLink>
               </li>
             </>
-          ) : (
-            <></>
           )}
         </ul>
       </div>
