@@ -33,7 +33,7 @@ const Dashboard = () => {
             </svg>
           </label>
         </div>
-        <h2 className="text-2xl font-bold text-purple-500 py-10 px-2">
+        <h2 className="text-xl lg:text-2xl font-bold text-purple-500 py-10 px-2">
           Welcome back, {user?.displayName}
         </h2>
         <Outlet></Outlet>
@@ -41,7 +41,7 @@ const Dashboard = () => {
       <div className="drawer-side">
         <label htmlFor="dashboard-sidebar" className="drawer-overlay"></label>
         <ul className="menu p-4 overflow-y-auto w-72 bg-base-100 text-base-content py-20">
-          {user && (
+          {!admin && (
             <>
               <li className="py-2">
                 <NavLink to="/dashboard">My Profile</NavLink>
