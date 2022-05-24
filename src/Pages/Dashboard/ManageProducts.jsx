@@ -18,7 +18,7 @@ const ManageProducts = () => {
     return <Loading></Loading>;
   }
   return (
-    <div>
+    <div className="bg-base-300 rounded-lg">
       <h2 className="flex justify-center py-8 text-3xl">Manage All Product</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-28 mx-auto px-6 md:px-10">
         {parts.map((part) => (

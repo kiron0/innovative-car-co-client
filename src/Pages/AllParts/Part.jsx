@@ -1,8 +1,7 @@
 import React from "react";
-import { FaRegEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const Part = ({ part, setAllParts }) => {
+const Part = ({ part }) => {
   const { _id, title, price, description, minimum, available, img } = part;
 
   const navigate = useNavigate();
@@ -33,17 +32,12 @@ const Part = ({ part, setAllParts }) => {
           )}
         </p>
         <div className="flex justify-center items-center gap-4">
-          <label
-            htmlFor="buy-modal"
-            onClick={() => setAllParts(part)}
+          <button
+            onClick={() => navigateToPartsDetail(_id)}
             className="btn btn-primary flex mx-auto mt-4 text-white rounded px-6"
           >
             Buy Now
-          </label>
-          <FaRegEye
-            onClick={() => navigateToPartsDetail(_id)}
-            className="text-3xl text-primary mt-4 cursor-pointer"
-          />
+          </button>
         </div>
       </div>
     </div>

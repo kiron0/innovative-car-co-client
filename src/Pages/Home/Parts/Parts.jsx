@@ -1,18 +1,10 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { FaRegEye } from "react-icons/fa";
 import Loading from "../../Shared/Loading/Loading";
-import BuyModal from "../../AllParts/BuyModal";
 
 const Parts = () => {
-  const [allParts, setAllParts] = useState(null);
   const navigate = useNavigate();
-  const {
-    data: parts,
-    isLoading,
-    refetch,
-  } = useQuery("allParts", async () => {
+  const { data: parts, isLoading } = useQuery("allParts", async () => {
     const res = await fetch("http://localhost:5000/parts?sort=1", {
       headers: {
         "content-type": "application/json",
@@ -65,26 +57,18 @@ const Parts = () => {
                     )}
                   </p>
                   <div className="flex justify-center items-center gap-4">
-                    <button className="btn btn-primary flex mx-auto mt-4 text-white rounded px-6">
+                    <button
+                      onClick={() => navigateToPartsDetail(_id)}
+                      className="btn btn-primary flex mx-auto mt-4 text-white rounded px-6"
+                    >
                       Buy Now
                     </button>
-                    <FaRegEye
-                      onClick={() => navigateToPartsDetail(_id)}
-                      className="text-3xl text-primary mt-4 cursor-pointer"
-                    />
                   </div>
                 </div>
               </div>
             )
           )}
       </div>
-      {allParts && (
-        <BuyModal
-          allParts={allParts}
-          setAllParts={setAllParts}
-          refetch={refetch}
-        ></BuyModal>
-      )}
       <Link to="/allParts">
         <button className="btn btn-primary flex mx-auto mt-16 text-white rounded px-10">
           Explore More
