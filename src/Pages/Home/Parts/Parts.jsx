@@ -20,7 +20,7 @@ const Parts = () => {
   }
 
   const navigateToPartsDetail = (id) => {
-    navigate(`/allParts/${id}`);
+    navigate(`/all-Parts/${id}`);
   };
   return (
     <div className="py-28 lg:px-12">

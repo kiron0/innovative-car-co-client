@@ -2,8 +2,11 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="pt-20 bg-base-100">
-      <footer class="footer px-10 py-10 bg-base-100 text-base-content container mx-auto">
+    <div
+      className="pt-20 bg-base-300"
+      style={{ clipPath: `ellipse(130% 100% at 51.45% 100%)` }}
+    >
+      <footer class="footer px-10 py-10 bg-base-300 text-base-content container mx-auto">
         <div>
           <svg
             width="50"

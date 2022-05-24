@@ -33,7 +33,7 @@ const Dashboard = () => {
             </svg>
           </label>
         </div>
-        <h2 className="text-2xl font-bold text-purple-500 py-12 px-2">
+        <h2 className="text-2xl font-bold text-purple-500 py-10 px-2">
           Welcome back, {user?.displayName}
         </h2>
         <Outlet></Outlet>

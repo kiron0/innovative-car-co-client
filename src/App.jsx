@@ -7,7 +7,6 @@ import Login from "./Pages/Login/Login/Login";
 import SignUp from "./Pages/Login/SignUp/SignUp";
 import Navbar from "./Pages/Shared/Navbar/Navbar";
 import ResetPassword from "./Pages/Login/ResetPassword";
-import preloader from "./Assets/preloader.gif";
 import AllParts from "./Pages/AllParts/AllParts";
 import PartsDetails from "./Pages/PartsDetails/PartsDetails";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -31,7 +30,7 @@ function App() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 4000);
   }, []);
 
   useEffect(() => {
@@ -46,8 +45,8 @@ function App() {
   return (
     <div data-theme={theme && "night"} className="App">
       {loading ? (
-        <div className="preloader">
-          <img src={preloader} alt="" loading={loading} />
+        <div id="preloader">
+          <div id="loader"></div>
         </div>
       ) : (
         <Navbar handleThemeChange={handleThemeChange} theme={theme} />
@@ -58,7 +57,7 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/allParts" element={<AllParts />} />
-        <Route path="/allParts/:id" element={<PartsDetails />} />
+        <Route path="/all-Parts/:id" element={<PartsDetails />} />
         <Route
           path="/dashboard"
           element={

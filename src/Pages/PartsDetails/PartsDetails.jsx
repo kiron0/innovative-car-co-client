@@ -13,13 +13,20 @@ const PartsDetails = () => {
   const [part, setPart] = useState({});
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState(100);
+  const [isReload, setIsReload] = useState(false);
 
   useEffect(() => {
     const url = `http://localhost:5000/parts/${id}`;
-    fetch(url)
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setPart(data));
-  }, [id]);
+  }, [id, isReload]);
   if (!part.img) {
     return (
       <div>
@@ -28,9 +35,9 @@ const PartsDetails = () => {
     );
   }
 
-  const { _id, title, img, price, available } = part;
+  const { _id, title, img, price, available, description, minimum } = part;
 
-  const handleBuying = () => {
+  const handleAddToCart = () => {
     if (Number(available) < Number(inputValue)) {
       return toast.error("Product not available!");
     }
@@ -41,12 +48,11 @@ const PartsDetails = () => {
       title,
       price,
       img,
-      available: totalProduct,
       minimum: inputValue,
-      user: user.email,
+      user: user?.email,
     };
     fetch(`http://localhost:5000/order`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "content-Type": "application/json",
       },
@@ -55,10 +61,35 @@ const PartsDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          toast.success(`${title} Booking Successful`);
+          toast.success("Product added to cart!");
         } else {
-          toast.error(`Booking Failed. You have already booked this parts.`);
+          toast.error("Product already in cart!");
         }
+        setIsReload(!isReload);
+      });
+
+    const updateParts = {
+      img,
+      description,
+      title,
+      price,
+      minimum: Number(minimum),
+      available: totalProduct,
+    };
+
+    fetch(`http://localhost:5000/parts/${_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateParts),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          return toast.error(data.error);
+        }
+        setIsReload(!isReload);
       });
   };
 
@@ -80,9 +111,8 @@ const PartsDetails = () => {
   return (
     <div className="px-4 lg:px-72 py-16 mx-auto bg-base-100">
       <button
-        className="btn btn-primary flex justify-center items-center text-white rounded px-4 gap-2"
+        className="btn btn-primary flex justify-center items-center text-white rounded px-4 gap-2 mb-[2.5rem]"
         onClick={() => navigate(-1)}
-        style={{ margin: "0 auto", marginBottom: "2rem" }}
       >
         <BiLeftArrowAlt className="text-2xl"></BiLeftArrowAlt>
         Back
@@ -145,7 +175,7 @@ const PartsDetails = () => {
               </button>
             </div>
             <button
-              onClick={handleBuying}
+              onClick={handleAddToCart}
               class="btn btn-primary text-white rounded-md"
             >
               Add to Cart

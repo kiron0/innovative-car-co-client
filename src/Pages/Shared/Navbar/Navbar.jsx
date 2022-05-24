@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { CgMenuLeft } from "react-icons/cg";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
@@ -8,7 +8,7 @@ import auth from "../../Firebase/firebase.init";
 
 const Navbar = ({ handleThemeChange, theme }) => {
   const [user] = useAuthState(auth);
-
+  const { pathname } = useLocation();
   const [scrollY, setScrollY] = useState();
 
   useEffect(() => {
@@ -115,7 +115,14 @@ const Navbar = ({ handleThemeChange, theme }) => {
     </>
   );
   return (
-    <section className="flex justify-center mb-8">
+    <section
+      className="flex justify-center mb-8"
+      style={
+        pathname.includes("all-Parts")
+          ? { display: "none" }
+          : { display: "flex" }
+      }
+    >
       <div className="fixed top-0 w-full z-50">
         <input type="checkbox" className="drawer-toggle" />
         <div

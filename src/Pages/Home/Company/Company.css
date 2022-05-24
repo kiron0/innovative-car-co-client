@@ -1,0 +1,12 @@
+.brands img {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.brands img:hover {
+  transform: translateY(5px);
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
