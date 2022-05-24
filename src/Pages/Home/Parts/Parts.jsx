@@ -1,25 +1,32 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import useParts from "../../../hooks/useParts";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import { FaRegEye } from "react-icons/fa";
+import Loading from "../../Shared/Loading/Loading";
+import BuyModal from "../../AllParts/BuyModal";
 
 const Parts = () => {
-  const [parts, setParts] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/parts?sort=1", {
+  const [allParts, setAllParts] = useState(null);
+  const navigate = useNavigate();
+  const {
+    data: parts,
+    isLoading,
+    refetch,
+  } = useQuery("allParts", async () => {
+    const res = await fetch("http://localhost:5000/parts?sort=1", {
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setParts(data);
-      });
-  }, []);
-  const navigate = useNavigate();
+    });
+    const data = await res.json();
+    return data;
+  });
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+
   const navigateToPartsDetail = (id) => {
     navigate(`/allParts/${id}`);
   };
@@ -71,6 +78,13 @@ const Parts = () => {
             )
           )}
       </div>
+      {allParts && (
+        <BuyModal
+          allParts={allParts}
+          setAllParts={setAllParts}
+          refetch={refetch}
+        ></BuyModal>
+      )}
       <Link to="/allParts">
         <button className="btn btn-primary flex mx-auto mt-16 text-white rounded px-10">
           Explore More

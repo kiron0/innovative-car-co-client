@@ -92,7 +92,7 @@ const BuyModal = ({ allParts, setAllParts, refetch }) => {
             <input
               type="submit"
               value="Submit"
-              className="btn btn-primary w-full max-w-xs text-white"
+              className="btn btn-primary w-full max-w-sm text-white"
             />
           </form>
         </div>

@@ -10,7 +10,6 @@ const AllParts = () => {
   const {
     data: parts,
     isLoading,
-    error,
     refetch,
   } = useQuery("allParts", async () => {
     const res = await fetch("http://localhost:5000/parts", {
