@@ -54,7 +54,7 @@ const MyProfile = () => {
       </div>
     );
 
-  const { address, education, number, linkedin, facebook } = result;
+  const { address, education, number, linkedin, facebook } = result[0];
 
   return (
     <div className="grid place-items-center py-20 md:px-5 lg:px-5">

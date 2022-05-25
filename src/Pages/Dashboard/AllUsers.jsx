@@ -11,7 +11,7 @@ const AllUsers = () => {
     isLoading,
     refetch,
   } = useQuery("users", () =>
-    fetch("http://localhost:5000/users", {
+    fetch("http://localhost:5000/users/all", {
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -22,10 +22,10 @@ const AllUsers = () => {
     return <Loading></Loading>;
   }
   return (
-    <div className="px-10 py-10 bg-base-300 h-screen rounded-md">
+    <div className="lg:px-10 py-10 bg-base-300 h-screen rounded-md">
       <div className="overflow-x-auto">
         <table className="table w-full">
-          <thead>
+          <thead className="bg-base-300">
             <tr>
               <th>No</th>
               <th>Name</th>
