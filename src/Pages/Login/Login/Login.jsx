@@ -31,7 +31,7 @@ const Login = () => {
   useEffect(() => {
     if (token) {
       navigate(from, { replace: true });
-      toast.success("Welcome back User!", {
+      toast.success(`Welcome Back, ${auth?.currentUser?.displayName}`, {
         autoClose: 4000,
       });
     }

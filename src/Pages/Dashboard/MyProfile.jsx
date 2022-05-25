@@ -16,11 +16,11 @@ const MyProfile = () => {
     const linkedin = e.target.linkedin.value;
     const facebook = e.target.facebook.value;
     const data = { education, number, address, linkedin, facebook };
-    await fetch(`http://localhost:5000/users?id=${auth?.currentUser?.uid}`, {
+    await fetch(`http://localhost:5000/users?uid=${auth?.currentUser?.uid}`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "Content-Type": "application/json",
+        "content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
@@ -28,7 +28,7 @@ const MyProfile = () => {
       .then((result) => {
         console.log(result);
         if (result?.success) {
-          toast.success(result?.message);
+          toast.success("Profile Updated Successfully");
           e.target.reset();
           refetch();
           setIsShow(false);
@@ -66,7 +66,7 @@ const MyProfile = () => {
               alt={auth?.currentUser?.displayName}
             />
           ) : (
-            auth?.currentUser?.displayName.slice(0, 1)
+            auth?.currentUser?.displayName?.slice(0, 1)
           )}
         </div>
         <div className="info my-2">

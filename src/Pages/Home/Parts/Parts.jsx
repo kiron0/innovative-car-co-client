@@ -15,7 +15,7 @@ const Parts = () => {
     return data;
   });
 
-  if (isLoading) {
+  if (isLoading || !parts) {
     return <Loader />;
   }
   return (
@@ -25,8 +25,8 @@ const Parts = () => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto px-6 md:px-10 lg:px-16">
         {parts
-          .slice(0, 4)
-          .map(
+          ?.slice(0, 4)
+          ?.map(
             ({
               _id,
               image,
@@ -36,7 +36,7 @@ const Parts = () => {
               orderQty,
               availableQty,
             }) => (
-              <div className="card bg-base-100 shadow-xl">
+              <div className="card bg-base-100 shadow-xl" key={_id}>
                 <figure>
                   <img src={image} className="h-52" alt="Shoes" />
                 </figure>

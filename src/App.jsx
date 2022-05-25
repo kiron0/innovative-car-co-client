@@ -21,6 +21,7 @@ import NotFound from "./Pages/Shared/NotFound/NotFound";
 import AddReview from "./Pages/Dashboard/AddReview";
 import ManageProducts from "./Pages/Dashboard/ManageProducts";
 import WelcomeDashboard from "./Pages/Dashboard/WelcomeDashboard";
+import PaymentHistory from "./Pages/Dashboard/PaymentHistory";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -58,7 +59,14 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/allParts" element={<AllParts />} />
-        <Route path="/purchase/:id" element={<PartsDetails />} />
+        <Route
+          path="/purchase/:id"
+          element={
+            <RequireAuth>
+              <PartsDetails />
+            </RequireAuth>
+          }
+        />
         <Route
           path="/dashboard"
           element={
@@ -71,6 +79,10 @@ function App() {
           <Route path="my-orders" element={<MyOrders></MyOrders>}></Route>
           <Route path="profile" element={<MyProfile></MyProfile>}></Route>
           <Route path="addReview" element={<AddReview></AddReview>}></Route>
+          <Route
+            path="paymentHistory"
+            element={<PaymentHistory></PaymentHistory>}
+          ></Route>
           <Route
             path="makeAdmin"
             element={

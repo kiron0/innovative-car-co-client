@@ -70,24 +70,21 @@ const PartsDetails = () => {
   };
 
   const sendOrderData = async (data) => {
-    await fetch(
-      `https://tools-manufactures.herokuapp.com/orders?uid=${auth?.currentUser?.uid}`,
-      {
-        method: "POST",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    )
+    await fetch(`http://localhost:5000/orders`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
       .then((res) => res.json())
       .then((result) => {
-        if (result.success) {
-          toast.success(result?.message);
+        if (result?.order?.insertedId) {
+          toast.success("Order placed successfully");
           formRef.current.reset();
         } else {
-          toast.error(result?.message);
+          toast.error("Something went wrong");
         }
       });
   };

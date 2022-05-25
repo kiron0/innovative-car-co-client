@@ -46,7 +46,7 @@ const Dashboard = () => {
                     alt={auth?.currentUser?.displayName}
                   />
                 ) : (
-                  <span>{auth?.currentUser?.displayName.slice(0, 1)}</span>
+                  <span>{auth?.currentUser?.displayName?.slice(0, 1)}</span>
                 )}
               </div>
             </label>
@@ -92,6 +92,11 @@ const Dashboard = () => {
               </li>
               <li className="py-2">
                 <NavLink to="/dashboard/addReview">Add a review</NavLink>
+              </li>
+              <li className="py-2">
+                <NavLink to="/dashboard/paymentHistory">
+                  Payment History
+                </NavLink>
               </li>
             </>
           )}

@@ -4,26 +4,22 @@ import {
   useSignInWithGoogle,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
-import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 import auth from "../../Firebase/firebase.init";
 import Loading from "../../Shared/Loading/Loading";
 import useToken from "../../../hooks/useToken";
+import useFirebase from "../../../hooks/useFirebase";
 
 const SignUp = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const { user } = useFirebase();
+  const [createUserWithEmailAndPassword, userEmail, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-  const [token] = useToken(user || gUser);
+  const [token] = useToken(userEmail || user || gUser);
   const navigate = useNavigate();
 
   let signInError;
@@ -48,14 +44,23 @@ const SignUp = () => {
   }
 
   // create a new user
-  const onSubmit = async (data) => {
-    const { email, password, name } = data;
-    const user = await createUserWithEmailAndPassword(email, name, password);
-    if (user) {
-      await updateProfile({
-        displayName: name,
+  const handleCreateUser = async (event) => {
+    event.preventDefault();
+    const displayName = event.target.username.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        updateProfile(auth?.currentUser, { displayName: displayName }).then(
+          () => {
+            toast.success(`Creating & SignIn successfully done.`);
+          }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message?.split(":")[1]);
       });
-    }
   };
 
   return (
@@ -63,7 +68,7 @@ const SignUp = () => {
       <div className="card w-full max-w-md bg-base-100">
         <div className="card-body">
           <h2 className="text-center text-2xl font-bold">Create an account</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleCreateUser}>
             <div className="form-control w-full max-w-sm">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -72,20 +77,9 @@ const SignUp = () => {
                 type="text"
                 placeholder="Your Name"
                 className="input input-bordered w-full max-w-sm"
-                {...register("name", {
-                  required: {
-                    value: true,
-                    message: "Name is Required",
-                  },
-                })}
+                name="username"
+                required
               />
-              <label className="label">
-                {errors.name?.type === "required" && (
-                  <span className="label-text-alt text-red-500">
-                    {errors.name.message}
-                  </span>
-                )}
-              </label>
             </div>
 
             <div className="form-control w-full max-w-sm">
@@ -96,29 +90,9 @@ const SignUp = () => {
                 type="email"
                 placeholder="Your Email"
                 className="input input-bordered w-full max-w-sm"
-                {...register("email", {
-                  required: {
-                    value: true,
-                    message: "Email is Required",
-                  },
-                  pattern: {
-                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                    message: "Provide a valid Email",
-                  },
-                })}
+                name="email"
+                required
               />
-              <label className="label">
-                {errors.email?.type === "required" && (
-                  <span className="label-text-alt text-red-500">
-                    {errors.email.message}
-                  </span>
-                )}
-                {errors.email?.type === "pattern" && (
-                  <span className="label-text-alt text-red-500">
-                    {errors.email.message}
-                  </span>
-                )}
-              </label>
             </div>
             <div className="form-control w-full max-w-sm">
               <label className="label">
@@ -128,29 +102,9 @@ const SignUp = () => {
                 type="password"
                 placeholder="Password"
                 className="input input-bordered w-full max-w-sm"
-                {...register("password", {
-                  required: {
-                    value: true,
-                    message: "Password is Required",
-                  },
-                  minLength: {
-                    value: 6,
-                    message: "Must be 6 characters or longer",
-                  },
-                })}
+                name="password"
+                required
               />
-              <label className="label">
-                {errors.password?.type === "required" && (
-                  <span className="label-text-alt text-red-500">
-                    {errors.password.message}
-                  </span>
-                )}
-                {errors.password?.type === "minLength" && (
-                  <span className="label-text-alt text-red-500">
-                    {errors.password.message}
-                  </span>
-                )}
-              </label>
             </div>
 
             {signInError}

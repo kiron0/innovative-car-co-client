@@ -33,7 +33,7 @@ const GetInTouch = () => {
             name="email"
             className="w-full p-4 outline-none bg-transparent border-none"
           />
-          <button className="px-10 bg-success text-white rounded-full">
+          <button className="px-10 bg-primary text-white rounded-full">
             Send{" "}
           </button>
         </form>
