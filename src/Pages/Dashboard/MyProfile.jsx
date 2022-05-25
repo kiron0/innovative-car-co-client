@@ -3,20 +3,20 @@ import toast from "react-hot-toast";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { useQuery } from "react-query";
 import auth from "../Firebase/firebase.init";
-import Loading from "../Shared/Loading/Loading";
+import Loader from "../Shared/Loader/Loader";
 
 const MyProfile = () => {
   const [isShow, setIsShow] = useState(false);
 
-  const handleUpdateProfile = async (event) => {
-    event.preventDefault();
-    const education = event.target.education.value;
-    const number = event.target.number.value;
-    const address = event.target.address.value;
-    const linkedin = event.target.linkedin.value;
-    const facebook = event.target.facebook.value;
+  const handleUpdateProfile = async (e) => {
+    e.preventDefault();
+    const education = e.target.education.value;
+    const number = e.target.number.value;
+    const address = e.target.address.value;
+    const linkedin = e.target.linkedin.value;
+    const facebook = e.target.facebook.value;
     const data = { education, number, address, linkedin, facebook };
-    await fetch(`http://localhost:5000/users?uid=${auth?.currentUser?.uid}`, {
+    await fetch(`http://localhost:5000/users?id=${auth?.currentUser?.uid}`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -26,9 +26,10 @@ const MyProfile = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result);
         if (result?.success) {
           toast.success(result?.message);
-          event.target.reset();
+          e.target.reset();
           refetch();
           setIsShow(false);
         }
@@ -49,16 +50,16 @@ const MyProfile = () => {
   if (isLoading)
     return (
       <div className="md:p-80">
-        <Loading />
+        <Loader />
       </div>
     );
 
-  const { address, education, number, linkedin, facebook } = result?.result;
+  const { address, education, number, linkedin, facebook } = result;
 
   return (
-    <div className="grid place-items-center py-20 px-5">
-      <div className="profile-card w-full md:w-1/3 text-center shadow-lg rounded-lg bg-base-200 p-7">
-        <div className="avatar w-40 h-40 rounded-full border-8 text-7xl font-semibold overflow-hidden mt-[-5rem] z-10 grid place-items-center mx-auto bg-base-200">
+    <div className="grid place-items-center py-20 md:px-5 lg:px-5">
+      <div className="profile-card w-[97%] md:w-2/3 lg:w-1/3 text-center shadow-lg rounded-lg bg-base-300 p-7">
+        <div className="avatar w-40 h-40 rounded-full border-8 text-7xl font-semibold overflow-hidden mt-[-5rem] z-10 grid place-items-center mx-auto ring ring-primary ring-offset-base-100 ring-offset-2">
           {auth?.currentUser?.photoURL ? (
             <img
               src={auth?.currentUser?.photoURL}
@@ -99,16 +100,25 @@ const MyProfile = () => {
                   </a>
                 </div>
               ) : (
-                "Not available"
+                <strong>Not available</strong>
               )}
             </li>
           </ul>
-          <button
-            onClick={() => setIsShow((prev) => !prev)}
-            className="btn btn-link"
-          >
-            Edit
-          </button>
+          {isShow ? (
+            <button
+              onClick={() => setIsShow((prev) => !prev)}
+              className="btn btn-link"
+            >
+              Close
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsShow((prev) => !prev)}
+              className="btn btn-link"
+            >
+              Edit
+            </button>
+          )}
         </div>
         {isShow && (
           <form
@@ -156,7 +166,9 @@ const MyProfile = () => {
               defaultValue={facebook}
             />
             <div className="text-center mt-3">
-              <button className="btn btn-primary">Update Profile</button>
+              <button className="btn btn-primary text-white">
+                Update Profile
+              </button>
             </div>
           </form>
         )}

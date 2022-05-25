@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import Loading from "../../Shared/Loading/Loading";
+import Loader from "../../Shared/Loader/Loader";
 
 const Parts = () => {
   const navigate = useNavigate();
@@ -16,52 +16,54 @@ const Parts = () => {
   });
 
   if (isLoading) {
-    return <Loading></Loading>;
+    return <Loader />;
   }
-
-  const navigateToPartsDetail = (id) => {
-    navigate(`/all-Parts/${id}`);
-  };
   return (
     <div className="py-28 lg:px-12">
       <h1 className="text-3xl lg:text-4xl text-center font-bold pb-16">
         Our Awesome <span className="text-primary">Services</span>
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-28 mx-auto px-6 md:px-10 lg:px-28">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto px-6 md:px-10 lg:px-16">
         {parts
-          .slice(0, 3)
+          .slice(0, 4)
           .map(
-            ({ _id, img, title, description, price, minimum, available }) => (
-              <div className="card w-full bg-base-100 px-4 shadow-lg" key={_id}>
-                <span class="indicator-item badge badge-primary text-white">
-                  new
-                </span>
+            ({
+              _id,
+              image,
+              productName,
+              productDescription,
+              price,
+              orderQty,
+              availableQty,
+            }) => (
+              <div className="card bg-base-100 shadow-xl">
                 <figure>
-                  <img src={img} alt="" className="rounded-xl w-60" />
+                  <img src={image} className="h-52" alt="Shoes" />
                 </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">{title}</h2>
-                  <p className="card-text font-bold">
-                    Price: <span className="text-primary">${price}</span>
-                  </p>
-                  <p className="card-text font-bold">
-                    Minimum: <span className="text-primary">{minimum}</span>
-                  </p>
-                  <p className="card-text font-bold">
-                    Available: <span className="text-primary">{available}</span>
-                  </p>
-                  <p className="card-text">
-                    {description?.slice(0, 80)}
-                    {description?.length > 100 && (
-                      <span title={`${description}`}>...read more</span>
-                    )}
-                  </p>
-                  <div className="flex justify-center items-center gap-4">
+                <div className="card-body">
+                  <h2 className="card-title">
+                    {productName}
+                    <div className="badge badge-secondary text-white">NEW</div>
+                  </h2>
+                  <p>{productDescription.slice(0, 60)}</p>
+                  <div className="card-actions justify-end">
+                    <div className="badge badge-ghost bg-base-300">
+                      <span title="Minimum Order Quantity">MOQ</span>-{" "}
+                      {orderQty}pcs
+                    </div>
+                    <div className="badge badge-ghost bg-base-300">
+                      Available- {availableQty}pcs
+                    </div>
+                    <div className="badge badge-ghost bg-base-300">
+                      {price}$
+                    </div>
+                  </div>
+                  <div className="card-actions justify-center mt-2">
                     <button
-                      onClick={() => navigateToPartsDetail(_id)}
-                      className="btn btn-primary flex mx-auto mt-4 text-white rounded px-6"
+                      onClick={() => navigate(`/purchase/${_id}`)}
+                      className="btn btn-primary text-white mt-4"
                     >
-                      Buy Now
+                      Order Now
                     </button>
                   </div>
                 </div>

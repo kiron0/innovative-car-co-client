@@ -1,196 +1,211 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Loading from "../Shared/Loading/Loading";
-import { BiLeftArrowAlt } from "react-icons/bi";
+import { MdArrowBackIos } from "react-icons/md";
 import { toast } from "react-hot-toast";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useQuery } from "react-query";
 import auth from "../Firebase/firebase.init";
 import "./PartsDetails.css";
+import Loader from "../Shared/Loader/Loader";
+import useTitle from "../../hooks/useTitle";
 
 const PartsDetails = () => {
-  const { id } = useParams();
-  const [user] = useAuthState(auth);
-  const [part, setPart] = useState({});
+  const [error, setError] = useState("");
+  const formRef = useRef(null);
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState(100);
-  const [isReload, setIsReload] = useState(false);
+  const { id } = useParams();
 
-  useEffect(() => {
-    const url = `http://localhost:5000/parts/${id}`;
-    fetch(url, {
-      method: "GET",
+  const { data, isLoading } = useQuery("products", () =>
+    fetch(`http://localhost:5000/parts/${id}`, {
       headers: {
-        "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-      .then((res) => res.json())
-      .then((data) => setPart(data));
-  }, [id, isReload]);
-  if (!part.img) {
-    return (
-      <div>
-        <Loading></Loading>
-      </div>
-    );
-  }
+    }).then((res) => res.json())
+  );
 
-  const { _id, title, img, price, available, description, minimum } = part;
+  const [orderQtyField, setOrderQtyField] = useState(0);
+  useTitle(data?.productName);
+  if (isLoading) return <Loader />;
 
-  const handleAddToCart = () => {
-    if (Number(available) < Number(inputValue)) {
-      return toast.error("Product not available!");
-    }
-    const totalProduct = Number(available) - Number(inputValue);
+  const {
+    _id,
+    image,
+    productName,
+    productDescription,
+    price,
+    availableQty,
+    orderQty,
+  } = data;
 
-    const booking = {
-      Id: _id,
-      title,
-      price,
-      img,
-      minimum: inputValue,
-      user: user?.email,
-    };
-    fetch(`http://localhost:5000/order`, {
-      method: "POST",
-      headers: {
-        "content-Type": "application/json",
+  const handlePlaceOrderForm = async (event) => {
+    event.preventDefault();
+    const phone = event.target.phone.value;
+    const address = event.target.address.value;
+    const orderQty = event.target.orderQty.value;
+    if (!phone) return toast.error(`Phone field is required`);
+    if (!/[0-9]/.test(phone))
+      return toast.error(`Phone Number must be number value`);
+    if (!address) return toast.error(`Address field is required`);
+    if (!orderQty) return toast.error(`Order Quantity field is required`);
+    const orderData = {
+      productInfo: {
+        productName,
+        image,
+        price,
+        orderQty,
+        id: _id,
       },
-      body: JSON.stringify(booking),
-    })
+      address: {
+        address,
+        phone,
+      },
+      author: {
+        name: auth?.currentUser?.displayName,
+        email: auth?.currentUser?.email,
+        uid: auth?.currentUser?.uid,
+      },
+      createdAt:
+        new Date().toDateString() + "-" + new Date().toLocaleTimeString(),
+    };
+    sendOrderData(orderData);
+  };
+
+  const sendOrderData = async (data) => {
+    await fetch(
+      `https://tools-manufactures.herokuapp.com/orders?uid=${auth?.currentUser?.uid}`,
+      {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          toast.success("Product added to cart!");
+      .then((result) => {
+        if (result.success) {
+          toast.success(result?.message);
+          formRef.current.reset();
         } else {
-          toast.error("Product already in cart!");
+          toast.error(result?.message);
         }
-        setIsReload(!isReload);
-      });
-
-    const updateParts = {
-      img,
-      description,
-      title,
-      price,
-      minimum: Number(minimum),
-      available: totalProduct,
-    };
-
-    fetch(`http://localhost:5000/parts/${_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updateParts),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          return toast.error(data.error);
-        }
-        setIsReload(!isReload);
       });
   };
 
-  const up = () => {
-    const quantity = Number(inputValue) + 1;
-    if (quantity > Number(part.available)) {
-      return toast.error("sorry product not available");
+  const handleOrderQty = (event) => {
+    setOrderQtyField(event.target.value);
+    const value = Number(event.target.value);
+    const orderQtyValue = Number(orderQty);
+    const totalStock = Number(availableQty);
+    if (value > totalStock) {
+      setError(`Your order quantity should be in ${totalStock}`);
+    } else if (value < orderQtyValue) {
+      setError(`Quantity must be greater than ${orderQtyValue}`);
+    } else {
+      setError("");
     }
-    setInputValue(quantity);
-  };
-  const down = () => {
-    const downQuantity = Number(inputValue) - 1;
-    if (downQuantity < Number(part.minimum)) {
-      return toast.error(`sorry minimum order ${part.minimum}`);
-    }
-    setInputValue(downQuantity);
   };
 
   return (
-    <div className="px-4 lg:px-72 py-16 mx-auto bg-base-100">
-      <button
-        className="btn btn-primary flex justify-center items-center text-white rounded px-4 gap-2 mb-[2.5rem]"
-        onClick={() => navigate(-1)}
-      >
-        <BiLeftArrowAlt className="text-2xl"></BiLeftArrowAlt>
-        Back
-      </button>
-      <div className="card lg:card-side w-full bg-base-100 shadow-xl py-2">
-        <figure>
-          <img
-            src={part.img}
-            alt="Album"
-            className="lg:w-3/4 w-full lg:h-auto h-full object-cover object-center rounded-lg"
-          />
-        </figure>
-        <div className="card-body lg:w-3/4 w-full lg:py-20 mb-6 lg:mb-0">
-          <h2 className="card-title text-3xl pb-4">{part.title}</h2>
-          <p className="card-text font-bold text-xl pb-2">
-            Price: <span className="text-primary">${part.price}</span>
-          </p>
-          <p className="card-text leading-relaxed pb-4">{part.description}</p>
-          <p className="card-text font-bold pb-2">
-            Minimum: <span className="text-primary">{part.minimum} parts</span>
-          </p>
-          <p className="card-text font-bold">
-            Available:{" "}
-            <span className="text-primary">{part.available} parts</span>
-          </p>
-          <div class="action-top d-sm-flex mt-8">
-            <div class="pro-qty mr-3 mb-4 mb-sm-0">
-              <label for="quantity" class="sr-only">
-                Quantity
-              </label>
-              <input
-                onChange={(e) => {
-                  if (
-                    Number(e.target.value) > Number(part.available) ||
-                    Number(e.target.value) < 0
-                  ) {
-                    return toast.error("Sorry, Product not available!");
-                  } else {
-                    return setInputValue(e.target.value);
-                  }
-                }}
-                type="number"
-                min={part.minimum}
-                max={part.available}
-                id="quantity"
-                title="Quantity"
-                value={inputValue}
+    <section className="p-4 md:p-10">
+      <div className="container mx-auto py-4 lg:py-16">
+        <div className="shadow-md my-5 p-6 grid grid-cols-1 md:grid-cols-2 gap-6 rounded-lg">
+          <div>
+            <div className="flex items-center gap-2">
+              <MdArrowBackIos
+                onClick={() => navigate(-1)}
+                className="cursor-pointer"
               />
-              <button
-                onClick={up}
-                class="inc qty-btn bts flex justify-center items-center"
-              >
-                +
-              </button>
-              <button
-                onClick={down}
-                class="dec qty-btn bts flex justify-center items-center"
-              >
-                -
-              </button>
+              <h3 className="text-2xl">{productName}</h3>
             </div>
-            <button
-              onClick={handleAddToCart}
-              class="btn btn-primary text-white rounded-md"
-            >
-              Add to Cart
-            </button>
+            <img
+              src={image}
+              alt={productName}
+              className="w-full h-80 object-contain"
+            />
+            <ul className="flex flex-wrap items-center gap-3">
+              <li>
+                Minimum Order Quantity -<strong>{orderQty} pcs</strong>
+              </li>
+              <li>
+                Available Quantity -<strong>{availableQty} pcs</strong>
+              </li>
+              <li>
+                Per Unit Prices - <strong>{price}$</strong>
+              </li>
+            </ul>
+            <div className="desc my-4 text-sm text-slate-500 font-montserrat">
+              {productDescription}
+            </div>
+          </div>
+          <div>
+            <form ref={formRef} onSubmit={handlePlaceOrderForm} action="">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  value={auth?.currentUser?.displayName}
+                  readOnly
+                  className="bg-base-300 p-3 rounded outline-none"
+                />
+              </div>
+              <div className="flex flex-col gap-2 mt-2">
+                <label htmlFor="name">Email</label>
+                <input
+                  type="text"
+                  value={auth?.currentUser?.email}
+                  readOnly
+                  className="bg-base-300 p-3 rounded outline-none"
+                />
+              </div>
+              <div className="flex flex-col gap-2 mt-2">
+                <label htmlFor="phone">Phone Number</label>
+                <input
+                  type="text"
+                  className="border p-3 rounded outline-none bg-base-100"
+                  id="phone"
+                  placeholder="Phone Number"
+                  name="phone"
+                />
+              </div>
+              <div className="flex flex-col gap-2 mt-2">
+                <label htmlFor="address">Shipping Address</label>
+                <textarea
+                  type="text"
+                  className="border p-3 rounded outline-none bg-base-100"
+                  id="address"
+                  name="address"
+                  placeholder="Address"
+                  style={{ resize: "none", height: "6rem" }}
+                ></textarea>
+              </div>
+              <div className="flex flex-col gap-2 mt-2">
+                <label htmlFor="orderQty">Order Quantity</label>
+                <input
+                  type="number"
+                  className={`border p-3 rounded outline-none bg-base-100${
+                    error && "border-error"
+                  }`}
+                  name="orderQty"
+                  id="orderQty"
+                  onChange={handleOrderQty}
+                  value={orderQtyField || orderQty}
+                />
+                {error && <small className="text-error">{error}</small>}
+              </div>
+              <div className="my-3">
+                <button
+                  className="btn btn-primary px-10 text-white"
+                  disabled={error && true}
+                >
+                  Place Order
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-      <button
-        onClick={() => navigate("/manageAll")}
-        style={{ marginTop: "5rem", marginBottom: "5rem" }}
-        className="btn btn-primary mx-auto block text-white"
-      >
-        Manage All Parts
-      </button>
-    </div>
+    </section>
   );
 };
 

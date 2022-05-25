@@ -14,7 +14,7 @@ const StatisticCounter = () => {
             </span>
             <div className="stat-title">Total Parts</div>
             <div className="stat-value">
-              <CountUp end={35} /> Items
+              <CountUp end={65} /> Items
             </div>
             <div className="stat-desc">From Start to end time we got.</div>
           </div>
@@ -24,7 +24,7 @@ const StatisticCounter = () => {
             </span>
             <div className="stat-title">Customers</div>
             <div className="stat-value text-secondary">
-              <CountUp end={200} />
+              <CountUp end={1042} />
             </div>
             <div className="stat-desc text-secondary">↗︎ 40 (2%)</div>
           </div>
@@ -34,7 +34,7 @@ const StatisticCounter = () => {
             </span>
             <div className="stat-title">Got Awards</div>
             <div className="stat-value">
-              <CountUp end={15} />
+              <CountUp end={34} />
             </div>
             <div className="stat-desc">↘︎ 90 (14%)</div>
           </div>
@@ -44,7 +44,7 @@ const StatisticCounter = () => {
             </span>
             <div className="stat-title">Revenue</div>
             <div className="stat-value">
-              <CountUp end={12000} />$
+              <CountUp end={24000} />$
             </div>
             <div className="stat-desc">↘︎ 90 (14%)</div>
           </div>

@@ -6,7 +6,7 @@ const Part = ({ part }) => {
 
   const navigate = useNavigate();
   const navigateToPartsDetail = (id) => {
-    navigate(`/all-Parts/${id}`);
+    navigate(`/purchase/${id}`);
   };
 
   return (

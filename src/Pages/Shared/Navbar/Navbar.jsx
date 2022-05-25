@@ -118,7 +118,7 @@ const Navbar = ({ handleThemeChange, theme }) => {
     <section
       className="flex justify-center mb-8"
       style={
-        pathname.includes("all-Parts")
+        pathname.includes("dashboard")
           ? { display: "none" }
           : { display: "flex" }
       }
