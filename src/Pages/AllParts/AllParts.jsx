@@ -25,9 +25,9 @@ const AllParts = () => {
   }
 
   return (
-    <div className="breadcrumb pb-24">
-      <div className="container mx-auto w-full py-28 bg-base-300">
-        <h2 className="text-3xl text-center mb-4">Shop Page</h2>
+    <div className="pb-24 px-3">
+      <div className="container mx-auto lg:px-12 w-full py-28">
+        <h2 className="breadcrumb text-3xl text-center mb-4">Shop Page</h2>
         <div className="text-md breadcrumbs">
           <ul className="justify-center">
             <li>

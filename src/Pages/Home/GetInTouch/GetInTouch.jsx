@@ -19,8 +19,8 @@ const GetInTouch = () => {
     event.target.reset();
   };
   return (
-    <div className="container mx-auto z-10 relative">
-      <div className="content text-center px-4 py-10 md:py-14  bg-base-300 rounded-lg md:mx-40 mb-[-5rem] shadow-lg">
+    <div className="container mx-auto z-10 relative py-10">
+      <div className="content text-center px-4 py-10 md:py-14 lg:py-20 bg-base-300 rounded-lg md:mx-40 mb-[-5rem] shadow-lg">
         <h1 className="text-3xl font-semibold mb-2">Get In Touch</h1>
         <form
           onSubmit={handleGetInTouchSubmit}

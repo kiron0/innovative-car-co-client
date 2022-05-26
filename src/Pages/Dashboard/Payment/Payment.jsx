@@ -28,8 +28,8 @@ const Payment = () => {
   const singleOrder = data.find((order) => order._id === paymentId);
 
   return (
-    <div className="grid place-items-center min-h-[80vh] px-3">
-      <div className="card shadow  rounded w-full md:w-1/3">
+    <div className="grid place-items-center min-h-[80vh] lg:px-3 py-8">
+      <div className="card shadow-lg rounded-lg w-full md:w-1/3">
         <div className="card-body p-4">
           <div className="flex items-center gap-3">
             <MdArrowBackIos
@@ -43,7 +43,7 @@ const Payment = () => {
           <img
             src={singleOrder?.productInfo?.image}
             alt={singleOrder?.productInfo?.productName}
-            className="border rounded w-full h-52 object-contain my-3"
+            className="rounded w-full h-52 object-contain my-3"
           />
           <ul className="flex flex-wrap flex-col gap-2 items-start  my-4">
             <li className="flex items-center justify-between w-full">

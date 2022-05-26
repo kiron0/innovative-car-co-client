@@ -23,6 +23,7 @@ import WelcomeDashboard from "./Pages/Dashboard/WelcomeDashboard";
 import PaymentHistory from "./Pages/Dashboard/PaymentHistory";
 import Payment from "./Pages/Dashboard/Payment/Payment";
 import ManageOrder from "./Pages/Dashboard/ManageOrder/ManageOrder";
+import Portfolio from "./Pages/Portfolio/Portfolio";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -60,6 +61,7 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/allParts" element={<AllParts />} />
+        <Route path="/portfolio" element={<Portfolio />} />
         <Route
           path="/purchase/:id"
           element={

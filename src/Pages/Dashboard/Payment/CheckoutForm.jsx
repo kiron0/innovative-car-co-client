@@ -88,7 +88,7 @@ const CheckoutForm = ({ singleOrder }) => {
         fetch(
           `http://localhost:5000/myOrders?uid=${auth?.currentUser?.uid}&&orderId=${singleOrder?._id}`,
           {
-            method: "PATCH",
+            method: "POST",
             headers: {
               authorization: `Bearer ${localStorage.getItem("accessToken")}`,
               "content-type": "application/json",
@@ -98,10 +98,11 @@ const CheckoutForm = ({ singleOrder }) => {
         )
           .then((res) => res.json())
           .then((result) => {
+            console.log(result);
             if (result.success) {
               navigate(`/dashboard/my-orders`);
               fetch(
-                `http://localhost:5000/products?productId=${singleOrder?.productInfo?.productId}`,
+                `http://localhost:5000/orders?productId=${singleOrder?.productInfo?.productId}`,
                 {
                   method: "PATCH",
                   headers: {
@@ -149,10 +150,10 @@ const CheckoutForm = ({ singleOrder }) => {
       />
       <button
         type="submit"
-        className="btn btn-primary my-8 w-full"
+        className="btn btn-primary my-8 w-full text-white"
         disabled={!stripe}
       >
-        Pay {totalPrice} $
+        Pay {totalPrice}$
       </button>
     </form>
   );
