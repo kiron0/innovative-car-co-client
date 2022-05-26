@@ -16,7 +16,7 @@ const CheckoutForm = ({ singleOrder }) => {
     Number(singleOrder?.productInfo?.orderQty) *
     Number(singleOrder?.productInfo?.price);
   useEffect(() => {
-    fetch(`http://localhost:5000/payment/create-payment-intent`, {
+    fetch(`https://innovative-cars-co.herokuapp.com/payment/create-payment-intent`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -33,19 +33,19 @@ const CheckoutForm = ({ singleOrder }) => {
   }, [totalPrice]);
 
   const handleSubmit = async (event) => {
-    // Block native form submission.
+
     event.preventDefault();
     if (!stripe || !elements) {
       return;
     }
-    // each type of element.
+
     const card = elements.getElement(CardElement);
 
     if (card == null) {
       return;
     }
 
-    // Use your card Element with other Stripe.js APIs
+
     const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
@@ -53,7 +53,7 @@ const CheckoutForm = ({ singleOrder }) => {
     if (error) {
       return toast.error(error?.message);
     }
-    /* Confirm Payment */
+
     const { paymentIntent, error: intentError } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -70,10 +70,10 @@ const CheckoutForm = ({ singleOrder }) => {
     } else {
       if (paymentIntent?.status === "succeeded") {
         const data = {
+          uid: auth?.currentUser?.uid,
           author: {
             name: singleOrder?.author?.name,
             email: auth?.currentUser.email,
-            uid: auth?.currentUser?.uid,
           },
           productInfo: {
             id: singleOrder?.productInfo?.id,
@@ -88,7 +88,7 @@ const CheckoutForm = ({ singleOrder }) => {
             new Date().toDateString() + " " + new Date().toLocaleTimeString(),
         };
         fetch(
-          `http://localhost:5000/booking?id=${singleOrder?._id}`,
+          `https://innovative-cars-co.herokuapp.com/booking?id=${singleOrder?._id}`,
           {
             method: "POST",
             headers: {
@@ -101,24 +101,23 @@ const CheckoutForm = ({ singleOrder }) => {
           .then((res) => res.json())
           .then((result) => {
             if (result?.insertedId) {
-              const data = {
-                paid: true,
-                transactionId: paymentIntent?.id,
-              }
               navigate(`/dashboard/my-orders`);
               fetch(
-                `http://localhost:5000/orders/paid/${singleOrder?.productInfo?.id}`,
+                `https://innovative-cars-co.herokuapp.com/orders/paid/${singleOrder?.productInfo?.id}`,
                 {
                   method: "PATCH",
                   headers: {
                     "content-type": "application/json",
                   },
-                  body: JSON.stringify(data),
+                  body: JSON.stringify({
+                    ...data,
+                    paid: "true",
+                  }),
                 }
               )
                 .then((res) => res.json())
                 .then((data) => {
-                  if(data?.insertedId){
+                  if(data?.modifiedCount){
                     Swal.fire(
                       "Congrats!!",
                       ` Payment successfully done. Here is your TransactionID ${paymentIntent?.id}`,

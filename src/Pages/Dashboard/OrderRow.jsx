@@ -28,7 +28,7 @@ const OrderRow = ({
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `http://localhost:5000/orders/${id}`,
+          `https://innovative-cars-co.herokuapp.com/orders/${id}`,
           {
             method: "DELETE",
             headers: {

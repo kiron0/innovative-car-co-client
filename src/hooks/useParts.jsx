@@ -7,7 +7,7 @@ const useParts = () => {
     isLoading,
     refetch,
   } = useQuery("allParts", async () => {
-    const res = await fetch("http://localhost:5000/parts?sort=1", {
+    const res = await fetch("https://innovative-cars-co.herokuapp.com/parts?sort=1", {
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

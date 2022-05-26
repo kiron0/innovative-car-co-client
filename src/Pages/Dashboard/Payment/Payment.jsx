@@ -17,7 +17,7 @@ const Payment = () => {
   const { paymentId } = useParams();
   const navigate = useNavigate();
   const { data, isLoading } = useQuery("Orders", () =>
-    fetch(`http://localhost:5000/orders?uid=${auth?.currentUser?.uid}`, {
+    fetch(`https://innovative-cars-co.herokuapp.com/orders?uid=${auth?.currentUser?.uid}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },

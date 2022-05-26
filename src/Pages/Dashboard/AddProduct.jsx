@@ -58,7 +58,7 @@ const AddProduct = () => {
       },
     };
 
-    await fetch(`http://localhost:5000/parts`, {
+    await fetch(`https://innovative-cars-co.herokuapp.com/parts`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

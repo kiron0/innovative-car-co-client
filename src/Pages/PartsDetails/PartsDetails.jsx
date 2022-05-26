@@ -15,7 +15,7 @@ const PartsDetails = () => {
   const { id } = useParams();
 
   const { data, isLoading } = useQuery("products", () =>
-    fetch(`http://localhost:5000/parts/${id}`, {
+    fetch(`https://innovative-cars-co.herokuapp.com/parts/${id}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -70,7 +70,7 @@ const PartsDetails = () => {
   };
 
   const sendOrderData = async (data) => {
-    await fetch(`http://localhost:5000/orders?uid=${auth?.currentUser?.uid}`, {
+    await fetch(`https://innovative-cars-co.herokuapp.com/orders?uid=${auth?.currentUser?.uid}`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

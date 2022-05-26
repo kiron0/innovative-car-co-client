@@ -18,7 +18,7 @@ const MyProfile = () => {
     const linkedin = e.target.linkedin.value;
     const facebook = e.target.facebook.value;
     const data = { education, number, address, linkedin, facebook };
-    await fetch(`http://localhost:5000/users?uid=${auth?.currentUser?.uid}`, {
+    await fetch(`https://innovative-cars-co.herokuapp.com/users?uid=${auth?.currentUser?.uid}`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -42,7 +42,7 @@ const MyProfile = () => {
     isLoading,
     refetch,
   } = useQuery(["profileData", auth?.currentUser?.uid], () =>
-    fetch(`http://localhost:5000/users?uid=${auth?.currentUser?.uid}`, {
+    fetch(`https://innovative-cars-co.herokuapp.com/users?uid=${auth?.currentUser?.uid}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
