@@ -2,10 +2,12 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { useQuery } from "react-query";
+import useTitle from "../../hooks/useTitle";
 import auth from "../Firebase/firebase.init";
 import Loader from "../Shared/Loader/Loader";
 
 const MyProfile = () => {
+  useTitle("Profile");
   const [isShow, setIsShow] = useState(false);
 
   const handleUpdateProfile = async (e) => {

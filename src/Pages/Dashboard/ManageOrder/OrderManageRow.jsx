@@ -59,7 +59,7 @@ const OrderManageRow = ({
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/orders?deleteId=${id}`, {
+        fetch(`http://localhost:5000/orders/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -67,9 +67,9 @@ const OrderManageRow = ({
         })
           .then((res) => res.json())
           .then((result) => {
-            if (result.success) {
+            if (result.deletedCount) {
               refetch();
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              Swal.fire("Deleted!", "Order has been deleted.", "success");
             }
           });
       }

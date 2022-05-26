@@ -1,4 +1,6 @@
 import React from "react";
+import ssl from "../../../Assets/ssl.png";
+import app from "../../../Assets/app.png";
 
 const Footer = () => {
   return (
@@ -24,6 +26,13 @@ const Footer = () => {
             <br />
             Providing reliable tech since 1992
           </p>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://play.google.com/store/apps/details?id=learn.programming.courses&hl=en&gl=US"
+          >
+            <img src={app} alt="" className="mt-4" />
+          </a>
         </div>
         <div>
           <span class="footer-title">Services</span>
@@ -66,6 +75,9 @@ const Footer = () => {
           <a href="/" class="link link-hover">
             Cookie policy
           </a>
+        </div>
+        <div>
+          <img src={ssl} alt="" />
         </div>
       </footer>
       <div className="text-center py-6">

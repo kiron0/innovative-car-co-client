@@ -7,8 +7,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../hooks/useAdmin";
 import auth from "../Firebase/firebase.init";
+import useTitle from "../../hooks/useTitle";
 
 const Dashboard = () => {
+  useTitle("Dashboard");
   const [user] = useAuthState(auth);
   const [admin] = useAdmin(user);
   const handleLogOut = async () => {

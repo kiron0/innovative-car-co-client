@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
@@ -7,15 +6,13 @@ import auth from "../Firebase/firebase.init";
 import Loader from "../Shared/Loader/Loader";
 import OrderRow from "./OrderRow";
 const MyOrders = () => {
-  const [user] = useAuthState(auth);
-  const email = user?.email;
-  useTitle("Manage Orders");
+  useTitle("My Orders");
   const { data, isLoading, refetch } = useQuery("Orders", () =>
-    fetch(`http://localhost:5000/myOrders?uid=${auth?.currentUser?.uid}`, {
+    fetch(`http://localhost:5000/orders?uid=${auth?.currentUser?.uid}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    }).then((res) => res.json().then((data) => console.log(data)))
+    }).then((res) => res.json())
   );
 
   if (isLoading) return <Loader />;

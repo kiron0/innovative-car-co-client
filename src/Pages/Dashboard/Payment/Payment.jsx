@@ -25,7 +25,7 @@ const Payment = () => {
   );
   useTitle("Payment Option");
   if (isLoading) return <Loader />;
-  const singleOrder = data.result.find((order) => order._id === paymentId);
+  const singleOrder = data.find((order) => order._id === paymentId);
 
   return (
     <div className="grid place-items-center min-h-[80vh] px-3">

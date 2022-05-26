@@ -47,6 +47,7 @@ const PartsDetails = () => {
     if (!address) return toast.error(`Address field is required`);
     if (!orderQty) return toast.error(`Order Quantity field is required`);
     const orderData = {
+      uid: auth?.currentUser?.uid,
       productInfo: {
         productName,
         image,
@@ -61,7 +62,6 @@ const PartsDetails = () => {
       author: {
         name: auth?.currentUser?.displayName,
         email: auth?.currentUser?.email,
-        uid: auth?.currentUser?.uid,
       },
       createdAt:
         new Date().toDateString() + "-" + new Date().toLocaleTimeString(),

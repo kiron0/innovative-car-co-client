@@ -14,17 +14,14 @@ const CheckoutForm = ({ singleOrder }) => {
     Number(singleOrder?.productInfo?.orderQty) *
     Number(singleOrder?.productInfo?.price);
   useEffect(() => {
-    fetch(
-      `http://localhost:5000/payment/create-payment-intent?uid=${auth?.currentUser?.uid}`,
-      {
-        method: "POST",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ price: totalPrice }),
-      }
-    )
+    fetch(`http://localhost:5000/payment/create-payment-intent`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ price: totalPrice }),
+    })
       .then((res) => res.json())
       .then((result) => {
         if (result?.clientSecret) {
@@ -71,6 +68,7 @@ const CheckoutForm = ({ singleOrder }) => {
     } else {
       if (paymentIntent?.status === "succeeded") {
         const data = {
+          uid: auth?.currentUser?.uid,
           author: {
             name: singleOrder?.author?.name,
             email: auth?.currentUser.email,
@@ -88,7 +86,7 @@ const CheckoutForm = ({ singleOrder }) => {
             new Date().toDateString() + " " + new Date().toLocaleTimeString(),
         };
         fetch(
-          `http://localhost:5000/orders?uid=${auth?.currentUser?.uid}&&orderId=${singleOrder?._id}`,
+          `http://localhost:5000/myOrders?uid=${auth?.currentUser?.uid}&&orderId=${singleOrder?._id}`,
           {
             method: "PATCH",
             headers: {
@@ -103,7 +101,7 @@ const CheckoutForm = ({ singleOrder }) => {
             if (result.success) {
               navigate(`/dashboard/my-orders`);
               fetch(
-                `http://localhost:5000/products?uid=${auth?.currentUser?.uid}&&productId=${singleOrder?.productInfo?.productId}`,
+                `http://localhost:5000/products?productId=${singleOrder?.productInfo?.productId}`,
                 {
                   method: "PATCH",
                   headers: {
