@@ -14,7 +14,7 @@ import useTitle from "../../hooks/useTitle";
 const Portfolio = () => {
   useTitle("Portfolio");
   return (
-    <div className="block lg:flex justify-center items-center mx-auto lg:w-2/3 lg:min-h-[90vh]">
+    <div className="block lg:flex justify-center items-center mx-auto lg:w-2/3 lg:min-h-[90vh] h-screen">
       <div class="profile container mx-auto">
         <div class="profile__container grid mx-auto">
           <div class="profile__data">

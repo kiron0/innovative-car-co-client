@@ -27,7 +27,7 @@ const OrderManageRow = ({
       confirmButtonText: "Yes, Shipped it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/orders/shipped?shippedId=${id}`, {
+        fetch(`http://localhost:5000/orders/shipped/${id}`, {
           method: "PATCH",
           headers: {
             authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -37,8 +37,7 @@ const OrderManageRow = ({
         })
           .then((res) => res.json())
           .then((result) => {
-            console.log(result);
-            if (result.success) {
+            if (result.modifiedCount) {
               refetch();
               Swal.fire("Yeah!", "Your Product is shipped.", "success");
             }

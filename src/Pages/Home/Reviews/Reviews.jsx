@@ -36,11 +36,7 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(`http://localhost:5000/reviews`)
       .then((res) => res.json())
       .then((result) => {
         setLoading(true);

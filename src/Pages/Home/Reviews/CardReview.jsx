@@ -4,7 +4,7 @@ import { ImStarEmpty, ImStarFull } from "react-icons/im";
 const CardReview = ({ reviewText, author, rating }) => {
   return (
     <div className="p-4  w-full">
-      <div className="h-full bg-base-200 p-8 rounded">
+      <div className="h-full bg-base-300 p-8 rounded">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"

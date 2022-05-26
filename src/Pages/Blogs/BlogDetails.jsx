@@ -17,7 +17,7 @@ const BlogDetails = () => {
       .then((data) => setBlog(data));
   }, [id]);
   return (
-    <div className="blog-details py-28">
+    <div className="blog-details py-28 h-screen">
       <div className="container mx-auto shadow-md rounded">
         <div className="card p-4 md:p-10">
           <div className="card-body">
@@ -26,7 +26,9 @@ const BlogDetails = () => {
                 onClick={() => navigate(-1)}
                 className="cursor-pointer"
               />
-              <h2 className="text-2xl font-semibold">{blog?.title}</h2>
+              <h2 className="text-2xl font-semibold text-slate-500">
+                {blog?.title}
+              </h2>
             </div>
             <ul className="meta flex items-center gap-4 my-2 flex-wrap">
               <li>

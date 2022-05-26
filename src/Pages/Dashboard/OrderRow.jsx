@@ -2,7 +2,6 @@ import React from "react";
 import { BsTrash } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import auth from "../Firebase/firebase.init";
 
 const OrderRow = ({
   productInfo,
@@ -29,7 +28,7 @@ const OrderRow = ({
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `http://localhost:5000/orders?uid=${auth?.currentUser?.uid}&&deleteId=${id}`,
+          `http://localhost:5000/orders/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -39,7 +38,7 @@ const OrderRow = ({
         )
           .then((res) => res.json())
           .then((result) => {
-            if (result.success) {
+            if (result.deletedCount) {
               refetch();
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
@@ -97,7 +96,7 @@ const OrderRow = ({
         <button
           disabled={paid && true}
           onClick={() => deleteOrder(_id)}
-          className="btn btn-error btn-sm"
+          className="btn bg-red-600 border-red-600 text-white btn-sm"
         >
           <BsTrash />
         </button>

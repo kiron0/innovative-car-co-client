@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 const GetInTouch = () => {
-  /* Handle Get in Touch */
   const [error, setError] = useState("");
   const handleGetInTouchSubmit = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
     if (!email) {
-      return setError(`Field is required.`);
+      return setError(`Field can't be empty.`);
     } else {
       setError(``);
     }
     Swal.fire(
-      "Thanks for your Mail!",
-      "I make sure you don't sent your spam mail!",
+      "Thanks for your subscribe!",
+      "Now you'll receive our latest newsletter!",
       "success"
     );
     event.target.reset();
@@ -21,7 +20,9 @@ const GetInTouch = () => {
   return (
     <div className="container mx-auto z-10 relative py-10">
       <div className="content text-center px-4 py-10 md:py-14 lg:py-20 bg-base-300 rounded-lg md:mx-40 mb-[-5rem] shadow-lg">
-        <h1 className="text-3xl font-semibold mb-2">Get In Touch</h1>
+        <h1 className="text-2xl lg:text-3xl font-semibold mb-2">
+          Subscribe Our Newsletter
+        </h1>
         <form
           onSubmit={handleGetInTouchSubmit}
           action=""

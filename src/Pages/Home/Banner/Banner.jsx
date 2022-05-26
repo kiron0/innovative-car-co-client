@@ -13,7 +13,7 @@ const Banner = () => {
         <Fade right distance="20px">
           <img
             src={banner}
-            className="lg:w-1/2 w-full lg:h-auto h-100 object-cover object-center rounded-lg"
+            className="lg:w-1/2 w-full lg:h-auto h-100 object-cover object-center rounded-lg mt-[-9rem] lg:mt-0"
             alt=""
           />
         </Fade>

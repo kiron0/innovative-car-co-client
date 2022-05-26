@@ -4,6 +4,7 @@ import Footer from "../../Shared/Footer/Footer";
 import Banner from "../Banner/Banner";
 import Company from "../Company/Company";
 import GetInTouch from "../GetInTouch/GetInTouch";
+import OrderStep from "../OrderStep/OrderStep";
 import Parts from "../Parts/Parts";
 import Reviews from "../Reviews/Reviews";
 import StatisticCounter from "../StatisticCounter/StatisticCounter";
@@ -17,6 +18,7 @@ const Home = () => {
       <StatisticCounter></StatisticCounter>
       <Reviews></Reviews>
       {/* <CountDown></CountDown> */}
+      <OrderStep></OrderStep>
       <Company></Company>
       <GetInTouch></GetInTouch>
       <Footer></Footer>

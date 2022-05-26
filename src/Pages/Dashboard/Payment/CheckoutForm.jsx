@@ -4,12 +4,14 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import auth from "../../Firebase/firebase.init";
+
+
 const CheckoutForm = ({ singleOrder }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
   const navigate = useNavigate();
-  /* Create Payment Intent */
+
   const totalPrice =
     Number(singleOrder?.productInfo?.orderQty) *
     Number(singleOrder?.productInfo?.price);
@@ -63,20 +65,18 @@ const CheckoutForm = ({ singleOrder }) => {
         },
       });
 
-    console.log(singleOrder?.productInfo?.productId);
-
     if (intentError) {
       return toast.error(intentError?.message);
     } else {
       if (paymentIntent?.status === "succeeded") {
         const data = {
-          uid: auth?.currentUser?.uid,
           author: {
             name: singleOrder?.author?.name,
             email: auth?.currentUser.email,
             uid: auth?.currentUser?.uid,
           },
           productInfo: {
+            id: singleOrder?.productInfo?.id,
             name: singleOrder?.productInfo?.productName,
             price: singleOrder?.productInfo?.price,
             orderQty: singleOrder?.productInfo?.orderQty,
@@ -88,9 +88,9 @@ const CheckoutForm = ({ singleOrder }) => {
             new Date().toDateString() + " " + new Date().toLocaleTimeString(),
         };
         fetch(
-          `http://localhost:5000/myOrders?uid=${auth?.currentUser?.uid}&&orderId=${singleOrder?._id}`,
+          `http://localhost:5000/booking?id=${singleOrder?._id}`,
           {
-            method: "PATCH",
+            method: "POST",
             headers: {
               authorization: `Bearer ${localStorage.getItem("accessToken")}`,
               "content-type": "application/json",
@@ -100,31 +100,32 @@ const CheckoutForm = ({ singleOrder }) => {
         )
           .then((res) => res.json())
           .then((result) => {
-            if (result.success) {
+            if (result?.insertedId) {
+              const data = {
+                paid: true,
+                transactionId: paymentIntent?.id,
+              }
               navigate(`/dashboard/my-orders`);
               fetch(
-                `http://localhost:5000/orders?productId=${singleOrder?.productInfo?.productId}`,
+                `http://localhost:5000/orders/paid/${singleOrder?.productInfo?.id}`,
                 {
                   method: "PATCH",
                   headers: {
-                    authorization: `Bearer ${localStorage.getItem(
-                      "accessToken"
-                    )}`,
                     "content-type": "application/json",
                   },
-                  body: JSON.stringify({
-                    orderQty: singleOrder?.productInfo?.orderQty,
-                  }),
+                  body: JSON.stringify(data),
                 }
               )
                 .then((res) => res.json())
-                .then(() => {
-                  Swal.fire(
-                    "Congrats!!",
-                    ` Payment successfully done. Here is your TransactionID ${paymentIntent?.id}.`,
-                    "success"
-                  );
-                });
+                .then((data) => {
+                  if(data?.insertedId){
+                    Swal.fire(
+                      "Congrats!!",
+                      ` Payment successfully done. Here is your TransactionID ${paymentIntent?.id}`,
+                      "success"
+                    );
+                  }
+              });
             }
           });
       }
