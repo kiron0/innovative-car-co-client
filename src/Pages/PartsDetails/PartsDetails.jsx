@@ -70,7 +70,7 @@ const PartsDetails = () => {
   };
 
   const sendOrderData = async (data) => {
-    await fetch(`http://localhost:5000/orders`, {
+    await fetch(`http://localhost:5000/orders?uid=${auth?.currentUser?.uid}`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -80,7 +80,7 @@ const PartsDetails = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        if (result?.order?.insertedId) {
+        if (result?.order) {
           toast.success("Order placed successfully");
           formRef.current.reset();
         } else {

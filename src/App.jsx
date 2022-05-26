@@ -19,9 +19,10 @@ import RequireAdmin from "./Pages/Login/RequireAdmin/RequireAdmin";
 import AddProduct from "./Pages/Dashboard/AddProduct";
 import NotFound from "./Pages/Shared/NotFound/NotFound";
 import AddReview from "./Pages/Dashboard/AddReview";
-import ManageProducts from "./Pages/Dashboard/ManageProducts";
 import WelcomeDashboard from "./Pages/Dashboard/WelcomeDashboard";
 import PaymentHistory from "./Pages/Dashboard/PaymentHistory";
+import Payment from "./Pages/Dashboard/Payment/Payment";
+import ManageOrder from "./Pages/Dashboard/ManageOrder/ManageOrder";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -84,6 +85,14 @@ function App() {
             element={<PaymentHistory></PaymentHistory>}
           ></Route>
           <Route
+            path="payment/:paymentId"
+            element={
+              <RequireAuth>
+                <Payment></Payment>
+              </RequireAuth>
+            }
+          ></Route>
+          <Route
             path="makeAdmin"
             element={
               <RequireAdmin>
@@ -108,10 +117,10 @@ function App() {
             }
           ></Route>
           <Route
-            path="manageProduct"
+            path="manageOrder"
             element={
               <RequireAdmin>
-                <ManageProducts></ManageProducts>
+                <ManageOrder></ManageOrder>
               </RequireAdmin>
             }
           ></Route>

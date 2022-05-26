@@ -28,7 +28,7 @@ const AllUsers = () => {
           <thead className="bg-base-300">
             <tr>
               <th>No</th>
-              <th>Name</th>
+              <th>Uid</th>
               <th>Email</th>
               <th>Role</th>
               <th>Action</th>

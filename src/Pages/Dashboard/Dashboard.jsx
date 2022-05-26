@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 import { BsGrid } from "react-icons/bs";
-import { FaTools } from "react-icons/fa";
+import { AiFillCar } from "react-icons/ai";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, Outlet } from "react-router-dom";
@@ -75,7 +75,7 @@ const Dashboard = () => {
               to="/"
               className="logo font-semibold text-center flex items-center flex-col gap-2"
             >
-              <FaTools className="text-black" />
+              <AiFillCar className="text-3xl" />
               Innovative Cars Co.
             </Link>
             <button onClick={handleLogOut} className="btn btn-xs btn-outline">
@@ -115,7 +115,7 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/makeAdmin">Make A Admin</NavLink>
               </li>
               <li className="py-2">
-                <NavLink to="/dashboard/manageProduct">Manage Products</NavLink>
+                <NavLink to="/dashboard/manageOrder">Manage Orders</NavLink>
               </li>
             </>
           )}

@@ -52,7 +52,7 @@ const Reviews = () => {
     <section className="reviews py-20 px-6 sm:px-0">
       <div className="container mx-auto">
         <TItle
-          title="Testimonial by Customer"
+          title="Reviews by Customer"
           subTitle="What Customer say about us?"
         />
         <Fade bottom distance="30px">

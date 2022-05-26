@@ -26,7 +26,6 @@ const MyProfile = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         if (result?.success) {
           toast.success("Profile Updated Successfully");
           e.target.reset();

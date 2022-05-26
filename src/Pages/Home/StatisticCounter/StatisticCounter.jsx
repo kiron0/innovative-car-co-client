@@ -6,8 +6,8 @@ import { GrMoney } from "react-icons/gr";
 const StatisticCounter = () => {
   return (
     <section>
-      <div className="container mx-auto  flex flex-col md:flex-row justify-center pb-10">
-        <div className="grid md:stats grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 shadow">
+      <div className="container mx-auto flex flex-col md:flex-row justify-center pb-10 px-4 lg:px-0">
+        <div className="grid md:stats grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 shadow-lg rounded-xl">
           <div className="stat place-items-center">
             <span className="icon">
               <BsTools className="text-3xl my-3" />

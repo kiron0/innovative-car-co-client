@@ -16,6 +16,7 @@ const OrderRow = ({
 }) => {
   const navigate = useNavigate();
   const { productName, price, orderQty, image } = productInfo;
+  console.log(productInfo);
   /* Handle Delete Order */
   const deleteOrder = async (id) => {
     Swal.fire({

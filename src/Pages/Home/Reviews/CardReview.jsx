@@ -1,5 +1,6 @@
 import React from "react";
-import { AiTwotoneStar } from "react-icons/ai";
+import Rating from "react-rating";
+import { ImStarEmpty, ImStarFull } from "react-icons/im";
 const CardReview = ({ reviewText, author, rating }) => {
   return (
     <div className="p-4  w-full">
@@ -27,6 +28,13 @@ const CardReview = ({ reviewText, author, rating }) => {
           </div>
           <span className="flex-grow flex flex-col pl-4">
             <div className="stars flex items-center gap-1 mb-1">
+              <Rating
+                style={{ fontSize: "1rem", marginLeft: "5px" }}
+                initialRating={rating}
+                emptySymbol={<ImStarEmpty style={{ color: "#fdde6c" }} />}
+                fullSymbol={<ImStarFull style={{ color: "#fdde6c" }} />}
+                readonly
+              ></Rating>
               {/* {[...Array(rating).keys()].map((ind) => (
                 <AiTwotoneStar key={ind} className="text-orange-500" />
               ))} */}

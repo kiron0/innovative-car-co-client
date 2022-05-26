@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import auth from "../../Firebase/firebase.init";
+import { AiFillCar } from "react-icons/ai";
 
 const Navbar = ({ handleThemeChange, theme }) => {
   const [user] = useAuthState(auth);
@@ -35,6 +36,16 @@ const Navbar = ({ handleThemeChange, theme }) => {
         </NavLink>
       </li>
 
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "bg-primary text-white rounded" : "rounded lg:mx-2"
+          }
+          to="/allParts"
+        >
+          Shop
+        </NavLink>
+      </li>
       <li>
         <NavLink
           className={({ isActive }) =>
@@ -134,8 +145,9 @@ const Navbar = ({ handleThemeChange, theme }) => {
             <div className="flex-1 px-0 mx-3">
               <p className="font-bold ml-0 md:ml-0 lg:ml-0 lg:w-auto w-full text-2xl ">
                 <NavLink to="/">
-                  <h2 className="text-xl lg:text-3xl text-primary">
-                    Innovative Car Co.
+                  <h2 className="text-xl lg:text-3xl text-primary flex items-center gap-2">
+                    <AiFillCar className="text-2xl lg:text-4xl" /> Innovative
+                    Car Co.
                   </h2>
                   {/* <img src={logo} alt="" className="w-24" /> */}
                 </NavLink>
