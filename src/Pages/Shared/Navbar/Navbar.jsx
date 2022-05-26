@@ -71,7 +71,7 @@ const Navbar = ({ handleThemeChange, theme }) => {
           className={({ isActive }) =>
             isActive ? "bg-primary text-white rounded" : "rounded lg:mx-2"
           }
-          to="/contactUs"
+          to="/contact"
         >
           Contact
         </NavLink>

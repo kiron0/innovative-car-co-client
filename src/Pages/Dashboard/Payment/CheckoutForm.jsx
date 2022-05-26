@@ -63,6 +63,8 @@ const CheckoutForm = ({ singleOrder }) => {
         },
       });
 
+    console.log(singleOrder?.productInfo?.productId);
+
     if (intentError) {
       return toast.error(intentError?.message);
     } else {
@@ -88,7 +90,7 @@ const CheckoutForm = ({ singleOrder }) => {
         fetch(
           `http://localhost:5000/myOrders?uid=${auth?.currentUser?.uid}&&orderId=${singleOrder?._id}`,
           {
-            method: "POST",
+            method: "PATCH",
             headers: {
               authorization: `Bearer ${localStorage.getItem("accessToken")}`,
               "content-type": "application/json",
@@ -98,7 +100,6 @@ const CheckoutForm = ({ singleOrder }) => {
         )
           .then((res) => res.json())
           .then((result) => {
-            console.log(result);
             if (result.success) {
               navigate(`/dashboard/my-orders`);
               fetch(
@@ -120,7 +121,7 @@ const CheckoutForm = ({ singleOrder }) => {
                 .then(() => {
                   Swal.fire(
                     "Congrats!!",
-                    ` Payment successfully done. Here is your TransactionID ${paymentIntent?.id} & Check Your Email.`,
+                    ` Payment successfully done. Here is your TransactionID ${paymentIntent?.id}.`,
                     "success"
                   );
                 });

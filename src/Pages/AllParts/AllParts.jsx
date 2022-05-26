@@ -26,14 +26,14 @@ const AllParts = () => {
 
   return (
     <div className="pb-24 px-3">
-      <div className="container mx-auto lg:px-12 w-full py-28">
-        <h2 className="breadcrumb text-3xl text-center mb-4">Shop Page</h2>
-        <div className="text-md breadcrumbs">
+      <div className="breadcrumb text-center py-20 bg-base-300">
+        <h2 className="text-3xl">Shop Page</h2>
+        <div className="text-md breadcrumbs ">
           <ul className="justify-center">
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>Shop </li>
+            <li>Contact </li>
           </ul>
         </div>
       </div>

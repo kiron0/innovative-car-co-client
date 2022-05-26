@@ -95,11 +95,6 @@ const Dashboard = () => {
               <li className="py-2">
                 <NavLink to="/dashboard/addReview">Add a review</NavLink>
               </li>
-              <li className="py-2">
-                <NavLink to="/dashboard/paymentHistory">
-                  Payment History
-                </NavLink>
-              </li>
             </>
           )}
           <li>

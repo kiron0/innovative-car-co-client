@@ -20,10 +20,12 @@ import AddProduct from "./Pages/Dashboard/AddProduct";
 import NotFound from "./Pages/Shared/NotFound/NotFound";
 import AddReview from "./Pages/Dashboard/AddReview";
 import WelcomeDashboard from "./Pages/Dashboard/WelcomeDashboard";
-import PaymentHistory from "./Pages/Dashboard/PaymentHistory";
 import Payment from "./Pages/Dashboard/Payment/Payment";
 import ManageOrder from "./Pages/Dashboard/ManageOrder/ManageOrder";
 import Portfolio from "./Pages/Portfolio/Portfolio";
+import Blogs from "./Pages/Blogs/Blogs";
+import Contact from "./Pages/Contact/Contact";
+import BlogDetails from "./Pages/Blogs/BlogDetails";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -62,6 +64,9 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/allParts" element={<AllParts />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogDetails/:id" element={<BlogDetails />} />
+        <Route path="/contact" element={<Contact />} />
         <Route
           path="/purchase/:id"
           element={
@@ -82,10 +87,6 @@ function App() {
           <Route path="my-orders" element={<MyOrders></MyOrders>}></Route>
           <Route path="profile" element={<MyProfile></MyProfile>}></Route>
           <Route path="addReview" element={<AddReview></AddReview>}></Route>
-          <Route
-            path="paymentHistory"
-            element={<PaymentHistory></PaymentHistory>}
-          ></Route>
           <Route
             path="payment/:paymentId"
             element={
