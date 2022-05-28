@@ -106,6 +106,18 @@ img {
   font-size: var(--smaller-font-size);
   font-weight: 500;
   color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+.profile__education {
+  font-size: var(--smaller-font-size);
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+.profile__email {
+  font-size: var(--smaller-font-size);
+  font-weight: 500;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
@@ -319,11 +331,6 @@ img {
   font-size: var(--smaller-font-size);
 }
 
-/* Hide and show projects & skills */
-.filters [data-content] {
-  overflow: scroll;
-}
-
 .filters__active[data-content] {
   display: grid;
 }
@@ -398,11 +405,11 @@ img {
     height: 135px;
     margin-bottom: 1rem;
   }
-  .profile__perfil {
+  .profile__profile {
     width: 120px;
     height: 120px;
   }
-  .profile__perfil img {
+  .profile__profile img {
     width: 90px;
   }
   .profile__profession {

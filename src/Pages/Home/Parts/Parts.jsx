@@ -59,7 +59,7 @@ const Parts = () => {
                       {price}$
                     </div>
                   </div>
-                  <div className="card-actions justify-center mt-2">
+                  <div className="card-actions justify-end mt-2">
                     <button
                       onClick={() => navigate(`/purchase/${_id}`)}
                       className="btn btn-primary text-white mt-4"

@@ -21,7 +21,7 @@ const ManageOrder = () => {
       <div className="title my-4 flex items-center justify-between">
         <div>
           <h3 className="text-2xl font-semibold">Manage Orders</h3>
-          <span>you can manage all the orders from here</span>
+          <span>You can manage all the orders from here</span>
         </div>
       </div>
       <div className="overflow-x-auto">

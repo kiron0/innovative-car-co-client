@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 const CardBlog = ({ blog }) => {
   const { _id, category, title, description } = blog;
   return (
-    <div class="p-4 lg:w-1/3">
-      <div class="h-full bg-base-300 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
-        <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
+    <div className="p-4 lg:w-1/3">
+      <div className="h-full bg-base-300 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
+        <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
           {category}
         </h2>
-        <h1 class="title-font sm:text-2xl text-xl font-medium mb-3">{title}</h1>
-        <p class="leading-relaxed mb-3">{description?.slice(0, 80)}</p>
+        <h1 className="title-font sm:text-2xl text-xl font-medium mb-3">
+          {title}
+        </h1>
+        <p className="leading-relaxed mb-3">{description?.slice(0, 80)}</p>
         <Link
           to={`/blogDetails/${_id}`}
           className="text-indigo-500 inline-flex items-center"

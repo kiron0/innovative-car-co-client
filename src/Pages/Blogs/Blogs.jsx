@@ -19,7 +19,7 @@ const Blogs = () => {
   }, []);
 
   return (
-    <section class="text-gray-600 body-font">
+    <section className="text-gray-600 body-font">
       <div className="breadcrumb text-center py-20 bg-base-300">
         <h2 className="text-3xl">Blog Page</h2>
         <div className="text-md breadcrumbs ">
@@ -31,8 +31,8 @@ const Blogs = () => {
           </ul>
         </div>
       </div>
-      <div class="container px-5 py-24 mx-auto">
-        <div class="flex flex-wrap -m-4">
+      <div className="container px-5 py-24 mx-auto">
+        <div className="flex flex-wrap -m-4">
           {blogs.map((blog) => (
             <CardBlog key={blog._id} blog={blog}></CardBlog>
           ))}

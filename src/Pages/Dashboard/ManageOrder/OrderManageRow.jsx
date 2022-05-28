@@ -118,7 +118,7 @@ const OrderManageRow = ({
         <button
           disabled={shipped && true}
           onClick={() => handleOrderDelete(_id)}
-          className="btn-error btn btn-xs"
+          className="bg-red-600 border-red-600 text-white btn btn-xs"
         >
           <RiDeleteBack2Line />
         </button>

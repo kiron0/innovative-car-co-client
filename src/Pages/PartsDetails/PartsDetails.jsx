@@ -41,6 +41,8 @@ const PartsDetails = () => {
     const phone = event.target.phone.value;
     const address = event.target.address.value;
     const orderQty = event.target.orderQty.value;
+    if (orderQty > availableQty)
+      return toast.error("Stock Out! The product will be available soon.");
     if (!phone) return toast.error(`Phone field is required`);
     if (!/[0-9]/.test(phone))
       return toast.error(`Phone Number must be number value`);
@@ -121,7 +123,7 @@ const PartsDetails = () => {
   };
 
   return (
-    <section className="p-4 md:p-10">
+    <section className="p-4 md:p-10 h-screen">
       <div className="container mx-auto py-4 lg:py-16">
         <div className="shadow-md my-5 p-6 grid grid-cols-1 md:grid-cols-2 gap-6 rounded-lg">
           <div>

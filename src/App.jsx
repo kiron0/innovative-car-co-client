@@ -26,6 +26,7 @@ import Portfolio from "./Pages/Portfolio/Portfolio";
 import Blogs from "./Pages/Blogs/Blogs";
 import Contact from "./Pages/Contact/Contact";
 import BlogDetails from "./Pages/Blogs/BlogDetails";
+import ManageProducts from "./Pages/Dashboard/ManageProducts/ManageProducts";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -124,6 +125,14 @@ function App() {
             element={
               <RequireAdmin>
                 <ManageOrder></ManageOrder>
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="manageProducts"
+            element={
+              <RequireAdmin>
+                <ManageProducts></ManageProducts>
               </RequireAdmin>
             }
           ></Route>

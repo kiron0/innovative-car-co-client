@@ -10,6 +10,7 @@ import { FcGoogle } from "react-icons/fc";
 import auth from "../../Firebase/firebase.init";
 import Loading from "../../Shared/Loading/Loading";
 import useToken from "../../../hooks/useToken";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -48,6 +49,7 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
+    toast.success(`Welcome ${data.name}! You are now registered.`);
   };
   return (
     <div className="flex h-screen justify-center items-center px-4 lg:px-12">

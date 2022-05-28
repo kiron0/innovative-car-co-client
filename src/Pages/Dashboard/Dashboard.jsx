@@ -103,16 +103,21 @@ const Dashboard = () => {
           {admin && (
             <>
               <li className="py-2">
-                <NavLink to="/dashboard/allUsers">Manage All Users</NavLink>
-              </li>
-              <li className="py-2">
                 <NavLink to="/dashboard/addProduct">Add a Product</NavLink>
               </li>
               <li className="py-2">
                 <NavLink to="/dashboard/makeAdmin">Make A Admin</NavLink>
               </li>
               <li className="py-2">
+                <NavLink to="/dashboard/allUsers">Manage Users</NavLink>
+              </li>
+              <li className="py-2">
                 <NavLink to="/dashboard/manageOrder">Manage Orders</NavLink>
+              </li>
+              <li className="py-2">
+                <NavLink to="/dashboard/manageProducts">
+                  Manage Products
+                </NavLink>
               </li>
             </>
           )}

@@ -9,22 +9,22 @@ import { RiLink } from "react-icons/ri";
 const Projects = () => {
   return (
     <div
-      class="projects__content grid grid-cols-1 lg:grid-cols-2 gap-5 mx-auto filters__active"
+      className="projects__content grid grid-cols-1 lg:grid-cols-2 gap-5 mx-auto filters__active bg-base-100"
       data-content
       id="projects"
     >
-      <article class="projects__card">
-        <img src={project1} alt="" class="projects__img" />
+      <article className="projects__card">
+        <img src={project1} alt="" className="projects__img" />
 
-        <div class="projects__modal">
+        <div className="projects__modal">
           <div>
-            <span class="projects__subtitle">Web</span>
-            <h3 class="projects__title">Portfolio</h3>
+            <span className="projects__subtitle">Web</span>
+            <h3 className="projects__title">Portfolio</h3>
             <a
               href="https://kiron0.github.io/my-portfolio-22/"
               target="_blank"
               rel="noopener noreferrer"
-              class="projects__button button button__small"
+              className="projects__button button button__small"
             >
               <RiLink />
             </a>
@@ -32,18 +32,18 @@ const Projects = () => {
         </div>
       </article>
 
-      <article class="projects__card">
-        <img src={project2} alt="" class="projects__img" />
+      <article className="projects__card">
+        <img src={project2} alt="" className="projects__img" />
 
-        <div class="projects__modal">
+        <div className="projects__modal">
           <div>
-            <span class="projects__subtitle">Web</span>
-            <h3 class="projects__title">To Do Task</h3>
+            <span className="projects__subtitle">Web</span>
+            <h3 className="projects__title">To Do Task</h3>
             <a
               href="https://todo-web-app-9174e.web.app/"
               target="_blank"
               rel="noopener noreferrer"
-              class="projects__button button button__small"
+              className="projects__button button button__small"
             >
               <RiLink />
             </a>
@@ -51,18 +51,18 @@ const Projects = () => {
         </div>
       </article>
 
-      <article class="projects__card">
-        <img src={project3} alt="" class="projects__img" />
+      <article className="projects__card">
+        <img src={project3} alt="" className="projects__img" />
 
-        <div class="projects__modal">
+        <div className="projects__modal">
           <div>
-            <span class="projects__subtitle">Web</span>
-            <h3 class="projects__title">Search Github Users</h3>
+            <span className="projects__subtitle">Web</span>
+            <h3 className="projects__title">Search Github Users</h3>
             <a
               href="https://kiron0.github.io/github_users/"
               target="_blank"
               rel="noopener noreferrer"
-              class="projects__button button button__small"
+              className="projects__button button button__small"
             >
               <RiLink />
             </a>
@@ -70,18 +70,18 @@ const Projects = () => {
         </div>
       </article>
 
-      <article class="projects__card">
-        <img src={project4} alt="" class="projects__img" />
+      <article className="projects__card">
+        <img src={project4} alt="" className="projects__img" />
 
-        <div class="projects__modal">
+        <div className="projects__modal">
           <div>
-            <span class="projects__subtitle">Web</span>
-            <h3 class="projects__title">Sports Car Store</h3>
+            <span className="projects__subtitle">Web</span>
+            <h3 className="projects__title">Sports Car Store</h3>
             <a
               href="https://sports-car-store.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
-              class="projects__button button button__small"
+              className="projects__button button button__small"
             >
               <RiLink />
             </a>

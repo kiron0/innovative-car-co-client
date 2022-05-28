@@ -41,8 +41,8 @@ const ManageProducts = () => {
                 )}
               </p>
               <div className="flex justify-center items-center gap-4">
-                <button class="btn btn-primary text-white">Ship</button>
-                <button class="btn btn-secondary text-white">Cancel</button>
+                <button className="btn btn-primary text-white">Ship</button>
+                <button className="btn btn-secondary text-white">Cancel</button>
               </div>
             </div>
           </div>

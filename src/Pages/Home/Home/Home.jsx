@@ -9,6 +9,7 @@ import OrderStep from "../OrderStep/OrderStep";
 import Parts from "../Parts/Parts";
 import Reviews from "../Reviews/Reviews";
 import StatisticCounter from "../StatisticCounter/StatisticCounter";
+import Teams from "../Team/Teams";
 
 const Home = () => {
   useTitle("Home Page");
@@ -20,6 +21,7 @@ const Home = () => {
       <StatisticCounter></StatisticCounter>
       <Reviews></Reviews>
       {/* <CountDown></CountDown> */}
+      <Teams></Teams>
       <OrderStep></OrderStep>
       <Company></Company>
       <GetInTouch></GetInTouch>
