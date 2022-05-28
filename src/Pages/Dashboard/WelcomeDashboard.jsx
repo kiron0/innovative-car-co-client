@@ -1,8 +1,10 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import useTitle from "../../hooks/useTitle";
 import auth from "../Firebase/firebase.init";
 
 const WelcomeDashboard = () => {
+  useTitle("Welcome Dashboard");
   const [user] = useAuthState(auth);
   return (
     <div className="p-5 grid place-items-center min-h-[80vh]">

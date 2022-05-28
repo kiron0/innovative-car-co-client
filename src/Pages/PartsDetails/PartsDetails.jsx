@@ -15,7 +15,7 @@ const PartsDetails = () => {
   const { id } = useParams();
 
   const { data, isLoading, refetch } = useQuery("products", () =>
-    fetch(`http://localhost:5000/parts/${id}`, {
+    fetch(`https://innovative-cars-co.herokuapp.com/parts/${id}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -73,27 +73,33 @@ const PartsDetails = () => {
   };
 
   const sendOrderData = async (data) => {
-    await fetch(`http://localhost:5000/orders?uid=${auth?.currentUser?.uid}`, {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    await fetch(
+      `https://innovative-cars-co.herokuapp.com/orders?uid=${auth?.currentUser?.uid}`,
+      {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         if (result?.order) {
-          fetch(`http://localhost:5000/parts/updateQty/${id}`, {
-            method: "PATCH",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              availableQty:
-                Number(availableQty) - Number(orderQtyField || orderQty),
-            }),
-          })
+          fetch(
+            `https://innovative-cars-co.herokuapp.com/parts/updateQty/${id}`,
+            {
+              method: "PATCH",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify({
+                availableQty:
+                  Number(availableQty) - Number(orderQtyField || orderQty),
+              }),
+            }
+          )
             .then((res) => res.json())
             .then((result) => {
               if (result?.modifiedCount) {

@@ -27,6 +27,8 @@ import Blogs from "./Pages/Blogs/Blogs";
 import Contact from "./Pages/Contact/Contact";
 import BlogDetails from "./Pages/Blogs/BlogDetails";
 import ManageProducts from "./Pages/Dashboard/ManageProducts/ManageProducts";
+import ManageReviews from "./Pages/Dashboard/ManageReviews/ManageReviews";
+import ScrollButton from "./Pages/Shared/ScrollButton/ScrollButton";
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -136,9 +138,18 @@ function App() {
               </RequireAdmin>
             }
           ></Route>
+          <Route
+            path="manageReviews"
+            element={
+              <RequireAdmin>
+                <ManageReviews></ManageReviews>
+              </RequireAdmin>
+            }
+          ></Route>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ScrollButton></ScrollButton>
       <Toaster />
     </div>
   );

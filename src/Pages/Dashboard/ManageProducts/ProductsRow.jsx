@@ -26,7 +26,7 @@ const ProductRow = ({
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/parts/${id}`, {
+        fetch(`https://innovative-cars-co.herokuapp.com/parts/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -46,11 +46,6 @@ const ProductRow = ({
   return (
     <tr>
       <th>{serialize + 1}</th>
-      <td>{productName}</td>
-      <td>{creator?.name}</td>
-      <td>{availableQty}pcs</td>
-      <td>{orderQty}pcs</td>
-      <td>{price}$</td>
       <td>
         <img
           src={image}
@@ -59,14 +54,21 @@ const ProductRow = ({
           className="rounded shadow-sm bg-base-300 border p-1"
         />
       </td>
+      <td>{productName}</td>
+      <td>{creator?.name}</td>
+      <td>{availableQty}pcs</td>
+      <td>{orderQty}pcs</td>
+      <td>{price}$</td>
       <td>
         <label
           type="button"
           htmlFor="my-modal-3"
           className="btn btn-sm btn-success text-white modal-button"
-          onClick={() => setModalProduct({ _id, productName, availableQty })}
+          onClick={() =>
+            setModalProduct({ _id, productName, availableQty, orderQty, price })
+          }
         >
-          Stock
+          Update
         </label>
       </td>
       <td>

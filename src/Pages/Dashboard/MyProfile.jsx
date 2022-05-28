@@ -18,14 +18,17 @@ const MyProfile = () => {
     const linkedin = e.target.linkedin.value;
     const facebook = e.target.facebook.value;
     const data = { education, number, address, linkedin, facebook };
-    await fetch(`http://localhost:5000/users?uid=${auth?.currentUser?.uid}`, {
-      method: "PATCH",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    await fetch(
+      `https://innovative-cars-co.herokuapp.com/users?uid=${auth?.currentUser?.uid}`,
+      {
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         if (result?.success) {
@@ -42,11 +45,14 @@ const MyProfile = () => {
     isLoading,
     refetch,
   } = useQuery(["profileData", auth?.currentUser?.uid], () =>
-    fetch(`http://localhost:5000/users?uid=${auth?.currentUser?.uid}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }).then((res) => res.json())
+    fetch(
+      `https://innovative-cars-co.herokuapp.com/users?uid=${auth?.currentUser?.uid}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    ).then((res) => res.json())
   );
   if (isLoading)
     return (
@@ -97,7 +103,7 @@ const MyProfile = () => {
               Address - <strong>{address ? address : "Not available"}</strong>
             </li>
             <li className="flex justify-between w-full items-center">
-              Social -{" "}
+              Social Links -{" "}
               {facebook || linkedin ? (
                 <div className="flex items-center gap-2">
                   <a target={"_blank"} href={linkedin} rel="noreferrer">

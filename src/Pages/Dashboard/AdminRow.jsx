@@ -7,7 +7,7 @@ const AdminRow = ({ uid, serialize, email, role, refetch, _id }) => {
   /* Handle Make Admin  */
   const handleMakeAdmin = async (id) => {
     await fetch(
-      `http://localhost:5000/users/admin?uid=${id}&&currentUserId=${auth?.currentUser?.uid}`,
+      `https://innovative-cars-co.herokuapp.com/users/admin?uid=${id}&&currentUserId=${auth?.currentUser?.uid}`,
       {
         method: "PATCH",
         headers: {

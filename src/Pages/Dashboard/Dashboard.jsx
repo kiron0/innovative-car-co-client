@@ -119,6 +119,9 @@ const Dashboard = () => {
                   Manage Products
                 </NavLink>
               </li>
+              <li className="py-2">
+                <NavLink to="/dashboard/manageReviews">Manage Reviews</NavLink>
+              </li>
             </>
           )}
         </ul>

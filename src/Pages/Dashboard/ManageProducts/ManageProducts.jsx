@@ -8,7 +8,7 @@ const ManageProducts = () => {
   useTitle("Manage Product");
   const [modalProduct, setModalProduct] = useState({});
   const { data, isLoading, refetch } = useQuery(["products"], () =>
-    fetch(`http://localhost:5000/parts`, {
+    fetch(`https://innovative-cars-co.herokuapp.com/parts`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -16,26 +16,25 @@ const ManageProducts = () => {
   );
 
   const productData = data;
-  //   const totalStock =
-  //     Number(modalProduct.availableQty);
+  // console.log(modalProduct?.productName);
+  // availableQty, orderQty, price
 
   /* Handle Update Stock Product */
-  const [stock, setStock] = useState("");
+  const [productNameField, setProductNameField] = useState("");
+  const [availableQtyField, setAvailableQtyField] = useState("");
+  const [orderQtyField, setOrderQtyField] = useState("");
+  const [priceField, setPriceField] = useState("");
 
   const handleUpdateStock = async (event) => {
     event.preventDefault();
 
-    if (stock === "") {
-      toast.error("Please Enter Stock!");
-      return;
-    }
-    if (stock < 0) {
+    if (availableQtyField < 0) {
       toast.error("Stock can't be negative!");
       return;
     }
 
     await fetch(
-      `http://localhost:5000/parts/update-stock/${modalProduct._id}`,
+      `https://innovative-cars-co.herokuapp.com/parts/update-stock/${modalProduct._id}`,
       {
         method: "PATCH",
         headers: {
@@ -43,19 +42,21 @@ const ManageProducts = () => {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          availableQty: Number(stock),
+          productName: productNameField || modalProduct?.productName,
+          availableQty: Number(availableQtyField || modalProduct?.availableQty),
+          orderQty: Number(orderQtyField || modalProduct?.orderQty),
+          price: Number(priceField || modalProduct?.price),
         }),
       }
     )
       .then((res) => res.json())
       .then((result) => {
         if (result.modifiedCount) {
+          refetch();
           toast.success(
             `${modalProduct?.productName} product updated successfully`
           );
-          refetch();
           setModalProduct(null);
-          setStock("");
         }
       });
   };
@@ -75,13 +76,13 @@ const ManageProducts = () => {
               <thead>
                 <tr>
                   <th></th>
+                  <th>Image</th>
                   <th>Name</th>
                   <th>Creator</th>
                   <th>Available Quantity</th>
-                  <th>Maximum Order Quantity</th>
+                  <th>Maximum Quantity</th>
                   <th>Price</th>
-                  <th>Image</th>
-                  <th>Stock Manage</th>
+                  <th>Update Details</th>
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -114,8 +115,21 @@ const ManageProducts = () => {
                 ✕
               </label>
               <h3 className="text-lg font-bold">{modalProduct?.productName}</h3>
-              <p>Update Your Product Quantity From Here</p>
+              <p>Update Your Product Details From Here</p>
               <form onSubmit={handleUpdateStock} action="" className="my-2">
+                <div className="my-4">
+                  <label htmlFor="stock">Update Product Name</label>
+                  <input
+                    type="text"
+                    placeholder="Put Your Product Name"
+                    className="input input-bordered w-full my-3"
+                    id="stock"
+                    value={productNameField || modalProduct?.productName}
+                    onChange={(event) =>
+                      setProductNameField(event.target.value)
+                    }
+                  />
+                </div>
                 <div className="my-4">
                   <label htmlFor="stock">Update Available Quantity</label>
                   <input
@@ -123,12 +137,36 @@ const ManageProducts = () => {
                     placeholder="Put Your Quantity"
                     className="input input-bordered w-full my-3"
                     id="stock"
-                    value={stock}
-                    onChange={(event) => setStock(event.target.value)}
+                    value={availableQtyField || modalProduct?.availableQty}
+                    onChange={(event) =>
+                      setAvailableQtyField(event.target.value)
+                    }
+                  />
+                </div>
+                <div className="my-4">
+                  <label htmlFor="stock">Update Maximum Quantity</label>
+                  <input
+                    type="number"
+                    placeholder="Put Your Quantity"
+                    className="input input-bordered w-full my-3"
+                    id="stock"
+                    value={orderQtyField || modalProduct?.orderQty}
+                    onChange={(event) => setOrderQtyField(event.target.value)}
+                  />
+                </div>
+                <div className="my-4">
+                  <label htmlFor="stock">Update Price</label>
+                  <input
+                    type="number"
+                    placeholder="Put Your Price"
+                    className="input input-bordered w-full my-3"
+                    id="stock"
+                    value={priceField || modalProduct.price}
+                    onChange={(event) => setPriceField(event.target.value)}
                   />
                 </div>
                 <div className="text-right">
-                  <button className="btn text-white">Update Stock</button>
+                  <button className="btn text-white">Update Product</button>
                 </div>
               </form>
             </div>

@@ -9,7 +9,7 @@ const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/blogs", {
+    fetch("https://innovative-cars-co.herokuapp.com/blogs", {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
