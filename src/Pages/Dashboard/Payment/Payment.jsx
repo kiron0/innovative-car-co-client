@@ -16,8 +16,8 @@ const stripePromise = loadStripe(
 const Payment = () => {
   const { paymentId } = useParams();
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery("Orders", () =>
-    fetch(`https://innovative-cars-co.herokuapp.com/orders?uid=${auth?.currentUser?.uid}`, {
+  const { data, isLoading, refetch } = useQuery("Orders", () =>
+    fetch(`http://localhost:5000/orders?uid=${auth?.currentUser?.uid}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -29,7 +29,7 @@ const Payment = () => {
 
   return (
     <div className="grid place-items-center min-h-[80vh] lg:px-3 py-8">
-      <div className="card shadow-lg rounded-lg w-full md:w-1/3">
+      <div className="card shadow-lg rounded-lg w-full lg:w-1/3 md:w-2/3">
         <div className="card-body p-4">
           <div className="flex items-center gap-3">
             <MdArrowBackIos
@@ -63,7 +63,7 @@ const Payment = () => {
           </ul>
           <div className="payment-option">
             <Elements stripe={stripePromise}>
-              <CheckoutForm singleOrder={singleOrder} />
+              <CheckoutForm singleOrder={singleOrder} refetch={refetch} />
             </Elements>
           </div>
         </div>

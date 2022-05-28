@@ -27,20 +27,17 @@ const OrderRow = ({
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(
-          `https://innovative-cars-co.herokuapp.com/orders/${id}`,
-          {
-            method: "DELETE",
-            headers: {
-              authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        )
+        fetch(`http://localhost:5000/orders/${id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
           .then((res) => res.json())
           .then((result) => {
             if (result.deletedCount) {
               refetch();
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              Swal.fire("Deleted!", "Your order has been deleted.", "success");
             }
           });
       }

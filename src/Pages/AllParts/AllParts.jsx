@@ -10,7 +10,7 @@ import Part from "./Part";
 const AllParts = () => {
   useTitle("Shop");
   const { data: parts, isLoading } = useQuery("allParts", async () => {
-    const res = await fetch("https://innovative-cars-co.herokuapp.com/parts", {
+    const res = await fetch("http://localhost:5000/parts", {
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

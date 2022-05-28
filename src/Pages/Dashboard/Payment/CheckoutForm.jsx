@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import auth from "../../Firebase/firebase.init";
 
-
-const CheckoutForm = ({ singleOrder }) => {
+const CheckoutForm = ({ singleOrder, refetch }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
@@ -16,7 +15,7 @@ const CheckoutForm = ({ singleOrder }) => {
     Number(singleOrder?.productInfo?.orderQty) *
     Number(singleOrder?.productInfo?.price);
   useEffect(() => {
-    fetch(`https://innovative-cars-co.herokuapp.com/payment/create-payment-intent`, {
+    fetch(`http://localhost:5000/payment/create-payment-intent`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -33,7 +32,6 @@ const CheckoutForm = ({ singleOrder }) => {
   }, [totalPrice]);
 
   const handleSubmit = async (event) => {
-
     event.preventDefault();
     if (!stripe || !elements) {
       return;
@@ -44,7 +42,6 @@ const CheckoutForm = ({ singleOrder }) => {
     if (card == null) {
       return;
     }
-
 
     const { error } = await stripe.createPaymentMethod({
       type: "card",
@@ -77,7 +74,7 @@ const CheckoutForm = ({ singleOrder }) => {
           },
           productInfo: {
             id: singleOrder?.productInfo?.id,
-            name: singleOrder?.productInfo?.productName,
+            productName: singleOrder?.productInfo?.productName,
             price: singleOrder?.productInfo?.price,
             orderQty: singleOrder?.productInfo?.orderQty,
             image: singleOrder?.productInfo?.image,
@@ -87,44 +84,39 @@ const CheckoutForm = ({ singleOrder }) => {
           createdAt:
             new Date().toDateString() + " " + new Date().toLocaleTimeString(),
         };
-        fetch(
-          `https://innovative-cars-co.herokuapp.com/booking?id=${singleOrder?._id}`,
-          {
-            method: "POST",
-            headers: {
-              authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        )
+        fetch(`http://localhost:5000/booking?id=${singleOrder?._id}`, {
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
           .then((res) => res.json())
           .then((result) => {
             if (result?.insertedId) {
               navigate(`/dashboard/my-orders`);
-              fetch(
-                `https://innovative-cars-co.herokuapp.com/orders/paid/${singleOrder?.productInfo?.id}`,
-                {
-                  method: "PATCH",
-                  headers: {
-                    "content-type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    ...data,
-                    paid: "true",
-                  }),
-                }
-              )
+              fetch(`http://localhost:5000/orders/paid/${singleOrder?._id}`, {
+                method: "PATCH",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                  ...data,
+                  paid: "true",
+                }),
+              })
                 .then((res) => res.json())
-                .then((data) => {
-                  if(data?.modifiedCount){
+                .then((modify) => {
+                  if (modify?.modifiedCount) {
+                    refetch();
                     Swal.fire(
                       "Congrats!!",
                       ` Payment successfully done. Here is your TransactionID ${paymentIntent?.id}`,
                       "success"
                     );
                   }
-              });
+                });
             }
           });
       }

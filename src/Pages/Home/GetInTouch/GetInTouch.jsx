@@ -19,14 +19,14 @@ const GetInTouch = () => {
   };
   return (
     <div className="container mx-auto z-10 relative py-10">
-      <div className="content text-center px-4 py-10 md:py-14 lg:py-20 bg-base-300 rounded-lg md:mx-40 mb-[-5rem] shadow-lg">
+      <div className="content text-center px-4 py-10 md:py-14 lg:py-20 bg-base-300 rounded-lg md:mx-10 mb-[-5rem] shadow-lg">
         <h1 className="text-2xl lg:text-3xl font-semibold mb-2">
           Subscribe Our Newsletter
         </h1>
         <form
           onSubmit={handleGetInTouchSubmit}
           action=""
-          className="lg:w-5/12 mx-auto flex items-stretch p-2 my-4 overflow-hidden rounded-full bg-base-100"
+          className="lg:w-5/12 md:w-8/12 mx-auto flex items-stretch p-2 my-4 overflow-hidden rounded-full bg-base-100"
         >
           <input
             type="email"

@@ -8,7 +8,7 @@ const BlogDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://innovative-cars-co.herokuapp.com/blogs/${id}`, {
+    fetch(`http://localhost:5000/blogs/${id}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },

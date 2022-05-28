@@ -36,7 +36,7 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    fetch(`https://innovative-cars-co.herokuapp.com/reviews`)
+    fetch(`http://localhost:5000/reviews`)
       .then((res) => res.json())
       .then((result) => {
         setLoading(true);

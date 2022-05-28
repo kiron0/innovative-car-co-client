@@ -24,7 +24,6 @@ const ResetPassword = () => {
         toast.success("Email sent");
       })
       .catch((error) => {
-        console.log(error.code);
         setError(error.code);
         setSending(false);
       });

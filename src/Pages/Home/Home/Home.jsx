@@ -4,6 +4,7 @@ import Footer from "../../Shared/Footer/Footer";
 import Banner from "../Banner/Banner";
 import Company from "../Company/Company";
 import GetInTouch from "../GetInTouch/GetInTouch";
+import Hero from "../Hero/Hero";
 import OrderStep from "../OrderStep/OrderStep";
 import Parts from "../Parts/Parts";
 import Reviews from "../Reviews/Reviews";
@@ -14,6 +15,7 @@ const Home = () => {
   return (
     <>
       <Banner></Banner>
+      <Hero></Hero>
       <Parts></Parts>
       <StatisticCounter></StatisticCounter>
       <Reviews></Reviews>

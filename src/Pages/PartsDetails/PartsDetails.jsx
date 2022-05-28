@@ -14,8 +14,8 @@ const PartsDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data, isLoading } = useQuery("products", () =>
-    fetch(`https://innovative-cars-co.herokuapp.com/parts/${id}`, {
+  const { data, isLoading, refetch } = useQuery("products", () =>
+    fetch(`http://localhost:5000/parts/${id}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -52,6 +52,7 @@ const PartsDetails = () => {
         productName,
         image,
         price,
+        availableQty,
         orderQty,
         id: _id,
       },
@@ -70,7 +71,7 @@ const PartsDetails = () => {
   };
 
   const sendOrderData = async (data) => {
-    await fetch(`https://innovative-cars-co.herokuapp.com/orders?uid=${auth?.currentUser?.uid}`, {
+    await fetch(`http://localhost:5000/orders?uid=${auth?.currentUser?.uid}`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -81,10 +82,26 @@ const PartsDetails = () => {
       .then((res) => res.json())
       .then((result) => {
         if (result?.order) {
-          toast.success("Order placed successfully");
-          formRef.current.reset();
-        } else {
-          toast.error("Something went wrong");
+          fetch(`http://localhost:5000/parts/updateQty/${id}`, {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              availableQty:
+                Number(availableQty) - Number(orderQtyField || orderQty),
+            }),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              if (result?.modifiedCount) {
+                refetch();
+                toast.success("Order placed successfully");
+                formRef.current.reset();
+              } else {
+                toast.error("Something went wrong");
+              }
+            });
         }
       });
   };

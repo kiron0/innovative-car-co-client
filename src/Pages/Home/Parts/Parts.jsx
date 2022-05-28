@@ -7,7 +7,7 @@ const Parts = () => {
   const navigate = useNavigate();
 
   const { data: parts, isLoading } = useQuery("allParts", async () => {
-    const res = await fetch("https://innovative-cars-co.herokuapp.com/parts?sort=1", {
+    const res = await fetch("http://localhost:5000/parts?sort=1", {
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -24,8 +24,10 @@ const Parts = () => {
   return (
     <div className="py-28 lg:px-12">
       <TItle title="Our Awesome Parts" subTitle="What Parts we can provide?" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto px-6 md:px-10 lg:px-16">
-        {parts?.slice(0, 4)?.map(
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto px-6 md:px-10 lg:px-16 py-8">
+        {parts
+          ?.slice(0, 4)
+          ?.map(
             ({
               _id,
               image,
@@ -44,7 +46,7 @@ const Parts = () => {
                     {productName}
                     <div className="badge badge-secondary text-white">NEW</div>
                   </h2>
-                  <p>{productDescription.slice(0, 60)}</p>
+                  <p>{productDescription?.slice(0, 60)}</p>
                   <div className="card-actions justify-end">
                     <div className="badge badge-ghost bg-base-300">
                       <span title="Minimum Order Quantity">MOQ</span>-{" "}

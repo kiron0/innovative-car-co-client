@@ -18,7 +18,7 @@ const MyProfile = () => {
     const linkedin = e.target.linkedin.value;
     const facebook = e.target.facebook.value;
     const data = { education, number, address, linkedin, facebook };
-    await fetch(`https://innovative-cars-co.herokuapp.com/users?uid=${auth?.currentUser?.uid}`, {
+    await fetch(`http://localhost:5000/users?uid=${auth?.currentUser?.uid}`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -42,7 +42,7 @@ const MyProfile = () => {
     isLoading,
     refetch,
   } = useQuery(["profileData", auth?.currentUser?.uid], () =>
-    fetch(`https://innovative-cars-co.herokuapp.com/users?uid=${auth?.currentUser?.uid}`, {
+    fetch(`http://localhost:5000/users?uid=${auth?.currentUser?.uid}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -55,11 +55,11 @@ const MyProfile = () => {
       </div>
     );
 
-  const { address, education, number, linkedin, facebook } = result[0];
+  const { role, address, education, number, linkedin, facebook } = result[0];
 
   return (
     <div className="grid place-items-center py-20 md:px-5 lg:px-5">
-      <div className="profile-card w-[97%] md:w-2/3 lg:w-1/3 text-center shadow-lg rounded-lg bg-base-300 p-7">
+      <div className="profile-card w-[97%] md:w-2/3 lg:w-1/3 text-center shadow-lg rounded-lg bg-base-100 p-7">
         <div className="avatar w-40 h-40 rounded-full border-8 text-7xl font-semibold overflow-hidden mt-[-5rem] z-10 grid place-items-center mx-auto ring ring-primary ring-offset-base-100 ring-offset-2">
           {auth?.currentUser?.photoURL ? (
             <img
@@ -75,6 +75,13 @@ const MyProfile = () => {
             {auth?.currentUser?.displayName}
           </h3>
           <small>{auth?.currentUser?.email}</small>
+          <small className="ml-2">
+            {role === "admin" ? (
+              <span className="badge bg-primary text-white">Admin</span>
+            ) : (
+              <span className="badge text-white">User</span>
+            )}
+          </small>
         </div>
         <hr />
         <div className="details py-5">
