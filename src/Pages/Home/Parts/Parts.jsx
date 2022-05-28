@@ -20,7 +20,12 @@ const Parts = () => {
     return data;
   });
 
-  if (isLoading || !parts || parts?.length === 0 || parts === undefined) {
+  if (
+    isLoading ||
+    !parts ||
+    parts?.length === 0 ||
+    parts?.length === undefined
+  ) {
     return <Loader />;
   }
 
