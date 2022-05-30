@@ -8,6 +8,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../hooks/useAdmin";
 import auth from "../Firebase/firebase.init";
 import useTitle from "../../hooks/useTitle";
+import Loader from "../Shared/Loader/Loader";
 
 const Dashboard = () => {
   useTitle("Dashboard");
@@ -100,7 +101,7 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/profile">Profile</NavLink>
           </li>
-          {admin && (
+          {admin ? (
             <>
               <li className="py-2">
                 <NavLink to="/dashboard/addProduct">Add a Product</NavLink>
@@ -123,6 +124,8 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/manageReviews">Manage Reviews</NavLink>
               </li>
             </>
+          ) : (
+            <Loader />
           )}
         </ul>
       </div>

@@ -15,7 +15,7 @@ const ProductRow = ({
   setModalProduct,
 }) => {
   /* Handle Product Delete */
-  const handleProductDelete = async (id) => {
+  const handleProductDelete = async (_id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -26,7 +26,7 @@ const ProductRow = ({
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://innovative-cars-co.herokuapp.com/parts/${id}`, {
+        fetch(`https://innovative-cars-co.herokuapp.com/parts/${_id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -76,7 +76,7 @@ const ProductRow = ({
           onClick={() => handleProductDelete(_id)}
           className="btn bg-red-600 border-red-600 text-white btn-sm"
         >
-          <BsTrash />
+          <BsTrash className="text-xl" />
         </button>
       </td>
     </tr>
